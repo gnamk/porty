@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground — Gina</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="assets/logo.svg" alt="" class="nav-icon" aria-hidden="true" draggable="false">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="playground.html">Playground</a></li>
+        <li><a href="index.html#about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── PLAYGROUND HERO ── -->
+  <section class="pgpage-hero">
+    <p class="pgpage-title">Playground</p>
+    <p class="pgpage-tagline">A corner for experiments, side quests, and things I made just for fun.</p>
+  </section>
+
+  <p class="pgpage-empty">More to come soon — check back later!</p>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" id="about">
+    <hr class="footer-rule">
+    <div class="wrap">
+      <div class="footer-inner">
+        <p class="footer-copy">Gina Namkung &copy; 2026</p>
+        <img src="assets/3-flowers.png" class="footer-flowers" alt="" aria-hidden="true" draggable="false">
+        <nav class="footer-links">
+          <a href="https://linkedin.com/in/ginanamkung" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:dnamkung@ucsd.edu">Email</a>
+          <a href="#">X</a>
+          <a href="#">Resume</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <div class="custom-cursor" id="customCursor"><span class="cursor-label">READ CASE STUDY →</span></div>
+
+  <script>
+    const customCursor = document.getElementById('customCursor');
+
+    document.addEventListener('mousemove', e => {
+      customCursor.style.left = e.clientX + 'px';
+      customCursor.style.top  = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => customCursor.classList.add('is-card'));
+      card.addEventListener('mouseleave', () => customCursor.classList.remove('is-card'));
+    });
+  </script>
+
+</body>
+</html>
