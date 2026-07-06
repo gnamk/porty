@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LA Hacks — Gina</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page-flash" id="pageFlash"></div>
+  <script src="assets/page-flash.js"></script>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.svg" alt="" class="nav-icon" aria-hidden="true" draggable="false">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="playground.html">Playground</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── CASE STUDY HERO v2 ── -->
+  <section class="cs2-hero">
+    <div class="cs2-info" style="margin-top:-40px;">
+      <h1 class="cs2-title">LA Hacks</h1>
+
+      <p class="cs2-overview-body">Shaping the visual identity for Southern California's largest hackathon serving 1,500+ participants.</p>
+
+      <dl class="cs2-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Add details</dd>
+        </div>
+        <div>
+          <dt>Team</dt>
+          <dd>Add details</dd>
+        </div>
+        <div>
+          <dt>Timeline</dt>
+          <dd>Fall 2025</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Add details</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="cs2-visual" style="--cover-bg: linear-gradient(to bottom, #AED6E4, #FFE7DB);">
+      <img src="assets/lahacks.svg" alt="LA Hacks mockup">
+    </div>
+
+    <nav class="cs2-toc" aria-label="Case study sections">
+      <div class="cs2-toc-list" id="csToc">
+        <span class="cs2-toc-indicator flower-pink" id="csTocIndicator"></span>
+        <a href="#cs2-overview" data-target="cs2-overview">Overview</a>
+        <a href="#cs2-problem" data-target="cs2-problem">The Problem</a>
+        <a href="#cs2-process" data-target="cs2-process">Process</a>
+        <a href="#cs2-outcome" data-target="cs2-outcome">Outcome</a>
+      </div>
+    </nav>
+  </section>
+
+  <!-- ── CASE STUDY CONTENT ── -->
+  <section class="cs-content cs2-content">
+
+    <div class="cs-section" id="cs2-overview">
+      <hr class="cs2-title-rule">
+      <h2>Overview</h2>
+      <p class="cs-body">Add an overview of the project here — the goal, your role, and the timeline.</p>
+    </div>
+
+    <div class="cs-section" id="cs2-problem">
+      <hr class="cs2-title-rule">
+      <h2>The Problem</h2>
+      <p class="cs-body">Describe the problem you were solving.</p>
+    </div>
+
+    <div class="cs-section" id="cs2-process">
+      <hr class="cs2-title-rule">
+      <h2>Process</h2>
+      <p class="cs-body">Walk through your design process — research, wireframes, iterations.</p>
+    </div>
+
+    <div class="cs-section" id="cs2-outcome">
+      <hr class="cs2-title-rule">
+      <h2>Outcome</h2>
+      <p class="cs-body">Share the final result and what you learned.</p>
+    </div>
+
+    <!-- ── Next project ── -->
+    <div class="cs-section cs2-next-project">
+      <h2 style="text-align:center; margin-top:64px;">Check out another project!</h2>
+      <a class="card is-visible" href="sips.html" style="--card-bg: linear-gradient(to bottom, #FFE3D6, #E7FFE6); max-width:624px; margin:24px auto 0;">
+        <div class="card-media">
+          <img class="card-img" src="assets/SIPS.svg" alt="SIPS mockup">
+        </div>
+        <div class="card-body">
+          <div class="card-title-row">
+            <h2>SIPS</h2>
+            <div class="tags">
+              <span>Fall 2026</span>
+              <span>Internship</span>
+            </div>
+          </div>
+          <p>Redesigning map of sober-inclusive places.</p>
+        </div>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" id="about">
+    <hr class="footer-rule">
+    <div class="wrap">
+      <div class="footer-inner">
+        <p class="footer-copy">Gina Namkung &copy; 2026</p>
+        <img src="assets/3-flowers.png" class="footer-flowers" alt="" aria-hidden="true" draggable="false">
+        <nav class="footer-links">
+          <a href="https://linkedin.com/in/ginanamkung" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:dnamkung@ucsd.edu">Email</a>
+          <a href="#">X</a>
+          <a href="#">Resume</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/smooth-scroll.js"></script>
+  <script src="assets/click-flower.js"></script>
+
+  <div class="custom-cursor-outer" id="cursorOuter"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <div class="custom-cursor-inner" id="cursorInner"></div>
+
+  <script>
+    const cursorOuter = document.getElementById('cursorOuter');
+    const cursorInner = document.getElementById('cursorInner');
+
+    document.addEventListener('mousemove', e => {
+      cursorOuter.style.left = e.clientX + 'px';
+      cursorOuter.style.top  = e.clientY + 'px';
+      cursorInner.style.left = e.clientX + 'px';
+      cursorInner.style.top  = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        cursorOuter.classList.add('is-card');
+        cursorInner.classList.add('is-card');
+      });
+      card.addEventListener('mouseleave', () => {
+        cursorOuter.classList.remove('is-card');
+        cursorInner.classList.remove('is-card');
+      });
+    });
+  </script>
+
+  <script src="assets/cs-toc.js"></script>
+
+</body>
+</html>

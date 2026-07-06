@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satori — Gina</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page-flash" id="pageFlash"></div>
+  <script src="assets/page-flash.js"></script>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.svg" alt="" class="nav-icon" aria-hidden="true" draggable="false">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="playground.html">Playground</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── CASE STUDY HERO v2 ── -->
+  <section class="cs2-hero">
+    <div class="cs2-info" style="margin-top:-40px;">
+      <h1 class="cs2-title">Satori</h1>
+
+      <p class="cs2-overview-body">Satori is a wearable health tracker and platform that helps people understand their emotions and habits through wearable brainwave tracking and AI-driven insights.</p>
+
+      <dl class="cs2-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Product Designer</dd>
+        </div>
+        <div>
+          <dt>Team</dt>
+          <dd style="white-space:nowrap;">4 Designers</dd>
+        </div>
+        <div>
+          <dt>Timeline</dt>
+          <dd>3 days</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Figma, Illustrator</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="cs2-visual" style="--cover-bg: linear-gradient(to bottom, #FFD1D1, #F5FFE6);">
+      <img src="assets/satori-line.svg" class="cs2-visual-line" alt="" aria-hidden="true" draggable="false">
+      <img src="assets/Satori%201.svg" alt="Satori app mockup 1">
+      <img src="assets/Satori2.svg" alt="Satori app mockup 2">
+    </div>
+
+    <nav class="cs2-toc" aria-label="Case study sections">
+      <div class="cs2-toc-list" id="csToc">
+        <span class="cs2-toc-indicator flower-pink" id="csTocIndicator"></span>
+        <a href="#cs2-context" data-target="cs2-context">Context</a>
+        <a href="#cs2-problem" data-target="cs2-problem">The Problem</a>
+        <a href="#cs2-solution" data-target="cs2-solution">Solution</a>
+        <a href="#cs2-research" data-target="cs2-research">Research</a>
+        <a href="#cs2-design" data-target="cs2-design">Design</a>
+        <a href="#cs2-takeaways" data-target="cs2-takeaways">Takeaways</a>
+      </div>
+    </nav>
+  </section>
+
+  <!-- ── CASE STUDY CONTENT ── -->
+  <section class="cs-content cs2-content">
+
+    <div class="cs-section" id="cs2-context">
+      <h2>Context</h2>
+      <p class="cs-body">For Figma's annual design hackathon, Figbuild, we were given a speculative design prompt:</p>
+      <div class="cs2-prompt-row">
+        <p class="cs2-prompt-quote">Design a tool that tracks, measures, visualizes, or quantifies<br>an aspect of human sensory experience.</p>
+        <img src="assets/man-looking-for-a-glass.svg" alt="" class="cs2-prompt-icon" aria-hidden="true">
+      </div>
+    </div>
+
+    <div class="cs-section" id="cs2-problem">
+      <hr class="cs2-title-rule">
+      <h2>The Problem</h2>
+      <h3 class="cs-subhead"><img src="assets/arcade.svg" alt="" class="cs2-arcade-icon" aria-hidden="true" style="width: 34px; height: auto; margin-right: 10px; vertical-align: middle;">The Black Box of the Mind</h3>
+      <p class="cs-body">We track almost everything our bodies do — steps, heart rate, calories. But the patterns that shape how we think and feel often remain invisible.</p>
+      <p class="cs-body"><strong>But what if we could better understand the mind's hidden patterns?</strong></p>
+      <p class="cs-body">Trembling fingers before a presentation, hours in bed lost to scrolling, or the urge to reach for a tub of ice cream after a long day can feel disconnected in the moment — but these subtle reactions reveal deeper emotional patterns that are often difficult to notice in real time, leaving us unsure why we felt or acted a certain way.</p>
+    </div>
+
+    <div class="cs-section-wide" id="cs2-solution">
+      <hr class="cs2-title-rule">
+      <div style="display:flex; align-items:center; gap:32px;">
+        <div style="flex:1;">
+          <h2>Solution</h2>
+          <h3 class="cs-subhead" style="margin-top:0;">Making Introspection Visible</h3>
+          <p class="cs-body" style="margin-bottom:0;">Satori explores a future where reflection can be supported through wearable brainwave tracking, wave-based visuals, and AI-driven insights. Users can make sense of their emotional patterns and turn self-awareness into meaningful change.</p>
+        </div>
+        <div style="flex:1; max-width:196px; border-radius:10px; overflow:hidden; position:relative; align-self:center;">
+          <video src="assets/satori-head-explode.mp4" autoplay loop muted playsinline style="display:block; width:100%; height:auto;"></video>
+          <div style="position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 0 0 2px #fff; pointer-events:none;"></div>
+        </div>
+      </div>
+
+      <h3 class="cs-subhead" style="margin-top:32px;">2-Part Product</h3>
+      <p class="cs-body">The Satori Clip tracks your brainwaves in real time and maps them against moments in your day. Paired with the mobile app, Satori calculates the science behind your emotions for you.</p>
+      <div style="display:flex; align-items:center; justify-content:center; gap:32px; margin-top:18px;">
+        <img src="assets/satori-shapes.png" alt="" aria-hidden="true" style="width:130px; height:auto; flex-shrink:0;" draggable="false">
+        <div style="display:flex; flex-direction:column; align-items:center; align-self:flex-end; gap:8px; margin-right:96px;">
+          <img src="assets/satori-with-clip.svg" alt="Satori Clip device" class="cs-img" style="margin-top:0; width:222px; transform:translateX(16px);" draggable="false">
+          <p class="cs-body" style="margin:0; transform:translateX(-8px);">Satori Clip</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; align-self:flex-end; gap:8px;">
+          <div style="max-width:200px; border-radius:10px; overflow:hidden; position:relative;">
+            <video src="assets/satori-homepage.mov" autoplay loop muted playsinline style="display:block; width:100%; height:auto;"></video>
+            <div style="position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 0 0 2px #fff; pointer-events:none;"></div>
+          </div>
+          <p class="cs-body" style="margin:0;">Satori App</p>
+        </div>
+        <img src="assets/satori-shapes.png" alt="" aria-hidden="true" style="width:130px; height:auto; flex-shrink:0;" draggable="false">
+      </div>
+
+      <p style="text-align:center; margin-top:48px;">
+        <a class="cs-proto-link" href="https://www.figma.com/proto/VYmrR5Xkc3PntjIqrlewOB/Satori?node-id=271-109&p=f&viewport=295%2C-86%2C0.07&t=OIhiXhcKLwR5zdyY-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=271%3A102&show-proto-sidebar=1" target="_blank" rel="noopener" style="font-size:24px;">View Prototype →</a>
+      </p>
+    </div>
+
+    <div class="cs-section-wide" id="cs2-research">
+      <hr class="cs2-title-rule">
+      <h2>Research</h2>
+      <h3 class="cs-subhead">Rapid-Fire Discovery</h3>
+
+      <p class="cs-body" style="margin-bottom:8px;">Satori focuses on using two forms of science to help users:</p>
+      <div class="cs-card-grid" style="margin-top:8px;">
+        <div class="cs-card cs-card--compact" style="--cs-card-bg: #FFEFE8;">
+          <h3 style="margin-top:6px;">Neurofeedback Research</h3>
+          <p>Mental and emotional states produce distinct electrical frequencies in the brain. Multiple types of brainwaves differentiate emotions — e.g. alpha waves reflecting a calm emotional state.</p>
+          <img src="assets/satori-line-shapes.svg" alt="" class="cs-card-graphic cs-card-graphic--shift-up" style="width:53%; max-width:167px;" aria-hidden="true">
+        </div>
+        <div class="cs-card cs-card--compact" style="--cs-card-bg: #FFEFE8;">
+          <h3>Cognitive Behavioral Therapy (CBT)</h3>
+          <p>Focuses on identifying and changing negative or inaccurate thinking patterns and behaviors. Helps manage emotional problems such as depression, anxiety, and PTSD.</p>
+          <img src="assets/satori-emotions.svg" alt="" class="cs-card-graphic cs-card-graphic--raised" aria-hidden="true">
+        </div>
+      </div>
+
+      <h3 class="cs-subhead" style="margin-top:64px;">Competitive Analysis</h3>
+      <p class="cs-body">We looked at products like the Oura Ring, Apple Watch, and Moodfit to understand how existing tools approach self-tracking.</p>
+      <div class="cs2-ca">
+        <div class="cs2-ca-left">
+          <div class="cs2-ca-head">
+            <div class="cs2-ca-count">
+              <span class="cs2-ca-num">3</span>
+              <span class="cs2-ca-count-label">Competitors</span>
+            </div>
+            <div class="cs2-ca-logos-cell">
+              <img class="cs2-ca-logos" src="assets/satori-competitors.svg" alt="Oura Ring, Apple Watch, and Moodfit logos">
+            </div>
+          </div>
+          <div class="cs2-ca-row">
+            <h4 class="cs2-ca-label">Strengths</h4>
+            <ul class="cs2-ca-list">
+              <li>Passive, low-effort tracking</li>
+              <li>Strong everyday health ecosystems</li>
+              <li>Connects mood to habits</li>
+              <li>Shareable charts and insights</li>
+            </ul>
+          </div>
+          <div class="cs2-ca-row">
+            <h4 class="cs2-ca-label">Weaknesses</h4>
+            <ul class="cs2-ca-list">
+              <li>Limited emotional pattern analysis</li>
+              <li>Reliant on manual logging</li>
+              <li>Requires consistent user input</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cs2-ca-visuals-cell">
+          <img class="cs2-ca-visuals" src="assets/satori-ca-visuals.svg" alt="Dashboards from competitor products">
+        </div>
+      </div>
+      <h3 class="cs-subhead" style="margin-top:36px;">Key Insights</h3>
+      <p class="cs-body">Introspection is a vital part of personal growth, but it's often inconsistent and difficult to sustain. While tools like therapy and journaling exist, they require time and access that not everyone has.</p>
+      <div class="cs-card-grid">
+        <div class="cs-card cs-card--icon" style="--cs-card-bg: #FFEFE8;">
+          <img src="assets/satori-person.svg" alt="" class="cs-card-icon" aria-hidden="true">
+          <div>
+            <h3>Invisible Patterns</h3>
+            <p>Subtle emotional shifts and behavioral triggers happen throughout the day, but go unnoticed without a way to track the mind.</p>
+          </div>
+        </div>
+        <div class="cs-card cs-card--icon" style="--cs-card-bg: #FFEFE8;">
+          <img src="assets/satori-person2.svg" alt="" class="cs-card-icon" aria-hidden="true">
+          <div>
+            <h3>Biased Self-Reporting</h3>
+            <p>Mood tracking apps rely on how users <em>think</em> they feel in the moment, which can be biased and fail to reveal deeper patterns.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-section-wide" id="cs2-design">
+      <hr class="cs2-title-rule">
+      <h2>Design</h2>
+      <h3 class="cs-subhead">User-Flow</h3>
+      <p class="cs-body">The flow was designed to feel simple: collect, visualize, reflect, and act.</p>
+      <p class="cs-body">Users begin by connecting their Satori Clip and setting personal goals. From there, they can view their mindwave patterns, tap into specific moments, and add personal notes. Over time, weekly summaries help them understand recurring patterns and track progress toward their goals.</p>
+
+      <div class="cs-flow-diagram">
+        <img src="assets/satori-user-flow.png" alt="Satori user flow diagram, showing sign-in and onboarding leading into Home, Goals, Patterns, and Settings flows.">
+      </div>
+
+      <h3 class="cs-subhead" style="margin-top:36px;">Low-fi Sprint</h3>
+      <p class="cs-body">We started with low-fidelity wireframes to establish the app's core structure and flows. Due to the tight timeline, we prioritized clarity and functionality. The onboarding flow was inspired by Apple's device setup experience to create a familiar introduction for users.</p>
+      <div class="cs-visual" style="background:none; border:none; padding:0; min-height:0; margin-top:32px;">
+        <img src="assets/satori-lowfi.svg" alt="Satori low-fidelity wireframes" style="width:60%; height:auto; display:block; margin:0 auto; border-radius:10px;" draggable="false">
+      </div>
+
+      <h3 class="cs-subhead" style="margin-top:64px;">AI-Accelerated Prototyping</h3>
+      <p class="cs-body" style="margin-top:8px;">Our iteration process was efficient and intentional. We used Figma Make to move quickly from concept to execution. It helped us generate visual directions and think through how abstract emotional data could be translated into clear insights for users.</p>
+      <div class="cs-visual" style="background:none; border:none; padding:0; min-height:0; margin-top:32px;">
+        <img src="assets/satori-figmak.svg" alt="High-fidelity UI generated with Figma Make" style="width:80%; height:auto; display:block; margin:0 auto;" draggable="false">
+      </div>
+
+    </div>
+
+    <div class="cs-section-wide" id="cs2-design-system">
+      <h3 class="cs-subhead">Design System</h3>
+      <p class="cs-body">Satori's visual language was built around softness and clarity. We used a clean, approachable typeface, rounded components, and soft gradients to create a sense of comfort and ease. The illustrations helped make abstract brain activity feel more personal, giving users a friendlier way to connect with their mindwave data.</p>
+      <img src="assets/satori-designsystem.svg" alt="Satori design system" style="width:90%; height:auto; display:block; margin:24px auto 0;" draggable="false">
+
+
+
+      <h3 class="cs-subhead" id="cs2-high-fi" style="margin-top:64px;">High-fi Polish</h3>
+
+      <p class="cs-body" style="margin-top:32px; font-weight:700;">01 Onboarding</p>
+      <p class="cs-body">The onboarding flow introduces the Satori Clip through a simple step-by-step setup. Users learn what the clip tracks, how their data is protected and used, and begin collecting mindwave patterns.</p>
+      <div style="display:flex; align-items:center; gap:32px; margin-top:16px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <div style="width:100%; max-width:260px; border-radius:10px; overflow:hidden; position:relative;">
+            <video src="assets/satori-onboarding.mov" autoplay loop muted playsinline style="display:block; width:100%; height:auto; object-fit:cover;"></video>
+            <div style="position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 0 0 2px #fff; pointer-events:none;"></div>
+          </div>
+        </div>
+        <div style="flex:0 0 40%; background:#FFEFE8; padding:16px;">
+          <p class="cs-body" style="margin:0;">My inspirations drew from meditation apps like Headspace, which had clean flows for guiding users through moments of reflection and mindfulness.</p>
+        </div>
+      </div>
+
+      <p class="cs-body" style="margin-top:32px; font-weight:700;">02 Home Screen</p>
+      <p class="cs-body">The homepage serves as a quick overview of the user's mental state, highlighting real-time brainwave activity.</p>
+      <div style="display:flex; align-items:center; gap:32px; margin-top:16px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <div style="width:100%; max-width:260px; border-radius:10px; overflow:hidden; position:relative;">
+            <video src="assets/satori-homepage-v2.mov" autoplay loop muted playsinline style="display:block; width:100%; height:auto; object-fit:cover;"></video>
+            <div style="position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 0 0 2px #fff; pointer-events:none;"></div>
+          </div>
+        </div>
+        <div style="flex:0 0 40%; background:#FFEFE8; padding:16px;">
+          <p class="cs-body" style="margin:0;">I wanted the first screen to give users a broad overview of their patterns and give them freedom to explore the app and gain deeper insights.</p>
+        </div>
+      </div>
+
+      <p class="cs-body" style="margin-top:32px; font-weight:700;">03 Patterns &amp; AI Enhanced Insights</p>
+      <p class="cs-body">The Patterns page helps users understand emotional shifts over time by combining data with AI enhanced insights. Users can toggle between day and week views, add notes to their mindwave data, and receive interpretations of patterns alongside their personal experiences.</p>
+      <div style="display:flex; align-items:center; gap:32px; margin-top:16px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <div style="width:100%; max-width:260px; border-radius:10px; overflow:hidden; position:relative;">
+            <video src="assets/satori-patterns.mov" autoplay loop muted playsinline style="display:block; width:100%; height:auto; object-fit:cover;"></video>
+            <div style="position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 0 0 2px #fff; pointer-events:none;"></div>
+          </div>
+        </div>
+        <div style="flex:0 0 40%; background:#FFEFE8; padding:16px;">
+          <p class="cs-body" style="margin:0;">I designed the note-taking feature to give context to the data. By connecting spikes or dips in waves to real-life moments, users can better recognize patterns in behavior. AI-enhanced insights build on this by identifying recurring trends and offering interpretations aligned with the user's notes.</p>
+        </div>
+      </div>
+
+      <p class="cs-body" style="margin-top:32px; font-weight:700;">04 Goals</p>
+      <p class="cs-body">The Goals page connects emotional awareness to behavior change. Users can choose preset goals or create custom ones, receiving personalized insights based on their mindwave patterns over time.</p>
+      <div style="display:flex; align-items:center; gap:32px; margin-top:16px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <div style="width:100%; max-width:260px; border-radius:10px; overflow:hidden; position:relative;">
+            <video src="assets/satori-goals.mov" autoplay loop muted playsinline style="display:block; width:100%; height:auto; object-fit:cover;"></video>
+            <div style="position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 0 0 2px #fff; pointer-events:none;"></div>
+          </div>
+        </div>
+        <div style="flex:0 0 40%; background:#FFEFE8; padding:16px;">
+          <p class="cs-body" style="margin:0;">I designed this feature to make reflection actionable. It helps users take the next step, with full customization or AI support to refine their goals.</p>
+        </div>
+      </div>
+      <h3 class="cs-subhead" style="margin-top:64px; font-size:24px; font-weight:700;">Presentation</h3>
+      <div style="position:relative; width:100%; aspect-ratio:16/9; margin-top:16px; overflow:hidden; border:1px solid var(--border);">
+        <iframe
+          src="https://embed.figma.com/deck/uSM8k41MVIXJI8yAN3Ph96?embed-host=share&theme=light&footer=false"
+          style="position:absolute; inset:0; width:100%; height:100%; border:none; transform:scale(1.01); transform-origin:center;"
+          allowfullscreen></iframe>
+      </div>
+      <a class="cs-proto-link" href="https://www.figma.com/deck/uSM8k41MVIXJI8yAN3Ph96" target="_blank" rel="noopener" style="display:block; margin-top:32px; margin-bottom:16px; font-size:24px; text-align:center;">View the full presentation in Figma &rarr;</a>
+    </div>
+
+    <div class="cs-section" id="cs2-takeaways">
+      <hr class="cs2-title-rule">
+      <h2>Takeaways</h2>
+      <div class="cs-takeaways">
+        <div class="cs-takeaway">
+          <img class="cs2-takeaway-img" src="assets/satori-rocketship.svg" alt="" aria-hidden="true" draggable="false">
+          <div>
+            <h3>Designing for the Abstract</h3>
+            <p>Imagining future technology pushed me to think beyond current constraints and expand my creative approach. I learned a lot about how to create visuals that make abstract data feel tangible!</p>
+          </div>
+        </div>
+        <div class="cs-takeaway">
+          <img class="cs2-takeaway-img" src="assets/satori-man-working.svg" alt="" aria-hidden="true" draggable="false">
+          <div>
+            <h3>Making AI Feel Supportive</h3>
+            <p>Since emotional data is deeply personal, the AI experience needed to feel like a guide rather than an authority. This helped me think more carefully about tone, privacy, and the difference between providing suggestions versus conclusions.</p>
+          </div>
+        </div>
+        <div class="cs-takeaway">
+          <img class="cs2-takeaway-img" src="assets/satori-man-showing-a-chart.svg" alt="" aria-hidden="true" draggable="false">
+          <div>
+            <h3>Moving Quickly with Intention</h3>
+            <p>The 3-day timeline pushed our team to move quickly and make intentional decisions. When faced with countless design choices, returning to our product goals helped us decide what mattered most.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Next project ── -->
+    <div class="cs-section cs2-next-project">
+      <h2 style="text-align:center; margin-top:64px;">Check out another project!</h2>
+      <a class="card is-visible" href="qcsa.html" style="--card-bg: linear-gradient(to bottom, #D9E9FF, #F1E8FF); max-width:624px; margin:24px auto 0;">
+        <div class="card-media">
+          <img class="card-img" src="assets/qcsa.svg" alt="QCSA website mockup">
+        </div>
+        <div class="card-body">
+          <div class="card-title-row">
+            <h2>QCSA</h2>
+            <div class="tags">
+              <span>Summer 2025</span>
+              <span>Non-profit</span>
+            </div>
+          </div>
+          <p>Redesigned QCSA's central platform, driving a 52% increase in engagement.</p>
+        </div>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" id="about">
+    <hr class="footer-rule">
+    <div class="wrap">
+      <div class="footer-inner">
+        <p class="footer-copy">Gina Namkung &copy; 2026</p>
+        <img src="assets/3-flowers.png" class="footer-flowers" alt="" aria-hidden="true" draggable="false">
+        <nav class="footer-links">
+          <a href="https://linkedin.com/in/ginanamkung" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:dnamkung@ucsd.edu">Email</a>
+          <a href="#">X</a>
+          <a href="#">Resume</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/smooth-scroll.js"></script>
+  <script src="assets/click-flower.js"></script>
+
+  <div class="custom-cursor-outer" id="cursorOuter"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <div class="custom-cursor-inner" id="cursorInner"></div>
+
+  <script>
+    const cursorOuter = document.getElementById('cursorOuter');
+    const cursorInner = document.getElementById('cursorInner');
+
+    document.addEventListener('mousemove', e => {
+      cursorOuter.style.left = e.clientX + 'px';
+      cursorOuter.style.top  = e.clientY + 'px';
+      cursorInner.style.left = e.clientX + 'px';
+      cursorInner.style.top  = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        cursorOuter.classList.add('is-card');
+        cursorInner.classList.add('is-card');
+      });
+      card.addEventListener('mouseleave', () => {
+        cursorOuter.classList.remove('is-card');
+        cursorInner.classList.remove('is-card');
+      });
+    });
+  </script>
+
+  <!-- ── TABLE OF CONTENTS: smooth scroll + scroll-spy (Satori only) ── -->
+  <script>
+    const tocLinks = Array.from(document.querySelectorAll('.cs2-toc a'));
+    const tocIndicator = document.getElementById('csTocIndicator');
+    const tocSections = tocLinks
+      .map(a => document.getElementById(a.dataset.target))
+      .filter(Boolean);
+
+    // Indicator cycles pink → blue → purple (looping) each time the active
+    // section changes, whether by scroll-spy or by clicking a ToC link.
+    const tocFlowers = ['pink', 'blue', 'purple'];
+    let tocFlowerIndex = 0;
+    let tocCurrentLink = null;
+
+    function setActiveTocLink(link) {
+      if (!link) return;
+      tocLinks.forEach(a => a.classList.remove('is-active'));
+      link.classList.add('is-active');
+
+      if (link !== tocCurrentLink) {
+        if (tocCurrentLink !== null) {
+          tocFlowerIndex = (tocFlowerIndex + 1) % tocFlowers.length;
+        }
+        tocCurrentLink = link;
+        if (tocIndicator) {
+          tocIndicator.classList.remove('flower-pink', 'flower-blue', 'flower-purple');
+          tocIndicator.classList.add('flower-' + tocFlowers[tocFlowerIndex]);
+        }
+      }
+
+      if (tocIndicator) {
+        tocIndicator.style.opacity = '1';
+        tocIndicator.style.transform = `translateY(${link.offsetTop}px)`;
+      }
+    }
+
+    tocLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.target);
+        if (!target) return;
+        // Land on the section's orange heading itself, not the section box
+        // (whose top includes the divider rule above the heading).
+        const heading = target.querySelector('h2') || target;
+        const navEl = document.querySelector('.nav');
+        const navH = navEl ? navEl.offsetHeight : 0;
+        const y = heading.getBoundingClientRect().top + window.scrollY - navH - 24;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    });
+
+    if (tocSections.length) {
+      const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const link = tocLinks.find(a => a.dataset.target === entry.target.id);
+            if (link) setActiveTocLink(link);
+          }
+        });
+      }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+
+      tocSections.forEach(sec => sectionObserver.observe(sec));
+    }
+
+    if (tocLinks[0]) setActiveTocLink(tocLinks[0]);
+  </script>
+
+</body>
+</html>

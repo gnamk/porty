@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rose Garden — Gina</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page-flash" id="pageFlash"></div>
+  <script src="assets/page-flash.js"></script>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.svg" alt="" class="nav-icon" aria-hidden="true" draggable="false">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="playground.html">Playground</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── CASE STUDY HERO v2 ── -->
+  <section class="cs2-hero">
+    <div class="cs2-info" style="margin-top:-40px;">
+      <h1 class="cs2-title">Rose Garden</h1>
+
+      <p class="cs2-overview-body">Journaling app inspired by the "rose, bud, thorn" icebreaker. Encouraging users to self-reflect daily with flowers.</p>
+
+      <dl class="cs2-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Product Designer</dd>
+        </div>
+        <div>
+          <dt>Team</dt>
+          <dd>4 designers, 7 developers</dd>
+        </div>
+        <div>
+          <dt>Timeline</dt>
+          <dd>May – June 2025</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Figma, Adobe Illustrator, Clip Studio Paint</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="cs2-visual" style="--cover-bg: linear-gradient(to bottom, #FFF6D9, #E0EFFF);">
+      <img src="assets/RG%201.svg" alt="Rose Garden app mockup 1">
+      <img src="assets/RG%202.svg" alt="Rose Garden app mockup 2">
+    </div>
+
+    <nav class="cs2-toc" aria-label="Case study sections">
+      <div class="cs2-toc-list" id="csToc">
+        <span class="cs2-toc-indicator flower-pink" id="csTocIndicator"></span>
+        <a href="#cs2-problem" data-target="cs2-problem">Problem</a>
+        <a href="#cs2-solution" data-target="cs2-solution">Solution</a>
+        <a href="#cs2-design" data-target="cs2-design">Design Decisions</a>
+        <a href="#cs2-takeaways" data-target="cs2-takeaways">Takeaways</a>
+      </div>
+    </nav>
+  </section>
+
+  <!-- ── CASE STUDY CONTENT ── -->
+  <section class="cs-content cs2-content">
+
+    <div class="cs-section" id="cs2-problem">
+      <hr class="cs2-title-rule">
+      <h2>Problem</h2>
+      <h3 class="cs-subhead">A blank page can be daunting.</h3>
+      <p class="cs-body">For many people, the hardest part of journaling is simply knowing where to begin. It's easy to feel overwhelmed, unsure what to write, or how to organize your thoughts (I knew the feeling all too well).</p>
+
+      <h3 class="cs-subhead">User Interviews</h3>
+      <p class="cs-body">Through our 27 interviews, several common themes emerged:</p>
+      <div class="cs-card-grid cs-card-grid--3">
+        <div class="cs-card" style="--cs-card-bg: #F3F3F3;">
+          <p>A negative stigma around digital journaling.</p>
+        </div>
+        <div class="cs-card" style="--cs-card-bg: #F3F3F3;">
+          <p>Users who already journal did not prefer a structured journaling experience.</p>
+        </div>
+        <div class="cs-card" style="--cs-card-bg: #F3F3F3;">
+          <p>Users who didn't journal preferred the structure of the rose-bud-thorn.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-section" id="cs2-solution">
+      <hr class="cs2-title-rule">
+      <h2>Our Solution</h2>
+      <p class="cs-body">Make journaling easier and more approachable by using the familiar "rose-bud-thorn" icebreaker. This simple structure offers a gentle guide for daily reflection.</p>
+
+      <h3 class="cs-subhead">Goals</h3>
+      <p class="cs-body"><strong>Leverage digital strengths</strong> — Instead of replicating traditional journaling, I wanted to focus on the flexibility of digital spaces, like importing and exporting images, rather than mimicking traditional journal entries.</p>
+      <p class="cs-body"><strong>Balance structure and creative freedom</strong> — Provide a guided journaling framework that users can follow or customize, allowing them to shape their experience without feeling restricted.</p>
+      <div class="cs-visual">Rose illustration (positive / negative / look-forward-to) — add final artwork here</div>
+    </div>
+
+    <div class="cs-section-wide" id="cs2-design">
+      <hr class="cs2-title-rule">
+      <h2>Design Decisions</h2>
+
+      <h3 class="cs-subhead">Rose – Bud – Thorn</h3>
+      <p class="cs-body">The opening screens guide users into reflection by letting them choose which prompt to begin with, making journaling feel more structured and approachable.</p>
+      <div class="cs-visual">Rose / bud / thorn prompt screen — add final mockup here</div>
+
+      <h3 class="cs-subhead">Journal Page Design</h3>
+      <p class="cs-body">Inspired by Notability and Instagram Stories, the freeform journal page gives users the flexibility to expand on their thoughts after using the given prompts. Movable text boxes, drawing tools, and image uploads allow each entry to feel personal and unconstrained by a traditional journaling format.</p>
+      <div class="cs-visual-row">
+        <div class="cs-visual">Journal page 1</div>
+        <div class="cs-visual">Journal page 2</div>
+        <div class="cs-visual">Journal page 3</div>
+      </div>
+
+      <h3 class="cs-subhead">Customizable View</h3>
+      <p class="cs-body">Users can switch between garden and calendar view, giving them flexibility in how they visualize and track their journaling progress.</p>
+      <div class="cs-visual-row">
+        <div class="cs-visual">Garden view</div>
+        <div class="cs-visual">Calendar view</div>
+      </div>
+    </div>
+
+    <div class="cs-section" id="cs2-takeaways">
+      <hr class="cs2-title-rule">
+      <h2>Takeaways</h2>
+      <div class="cs-takeaways">
+        <div class="cs-takeaway">
+          <span class="cs-takeaway-icon"></span>
+          <div>
+            <h3>My Love for Product Design</h3>
+            <p>This is the project that started my journey of making meaningful experiences — it will always hold a special place in my heart!</p>
+          </div>
+        </div>
+        <div class="cs-takeaway">
+          <span class="cs-takeaway-icon"></span>
+          <div>
+            <h3>Designing for Clarity</h3>
+            <p>With a visually heavy project, it was essential that the designs were clear and easy to navigate.</p>
+          </div>
+        </div>
+        <div class="cs-takeaway">
+          <span class="cs-takeaway-icon"></span>
+          <div>
+            <h3>Creative Collaboration</h3>
+            <p>Working with 3 other designers helped spark new ideas and develop innovative features for Rose Garden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-section">
+      <p class="cs-body" style="text-align:center; max-width:none;">So grateful to my Project Leads Helen Feng and Andrew Wang for making Rose Garden possible!</p>
+      <div class="cs-photo-grid">
+        <div class="cs-visual cs-photo-wide">Group photo — add final image here</div>
+        <div class="cs-visual">Team photo 1</div>
+        <div class="cs-visual">Team photo 2</div>
+      </div>
+    </div>
+
+    <!-- ── Next project ── -->
+    <div class="cs-section cs2-next-project">
+      <h2 style="text-align:center; margin-top:64px;">Check out another project!</h2>
+      <a class="card is-visible" href="la-hacks.html" style="--card-bg: linear-gradient(to bottom, #AED6E4, #FFE7DB); max-width:624px; margin:24px auto 0;">
+        <div class="card-media">
+          <img class="card-img" src="assets/lahacks.svg" alt="LA Hacks mockup">
+        </div>
+        <div class="card-body">
+          <div class="card-title-row">
+            <h2>LA Hacks</h2>
+            <div class="tags">
+              <span>Fall 2025</span>
+              <span>Non-profit</span>
+            </div>
+          </div>
+          <p>Shaping the visual identity for SoCal's largest hackathon serving 1,500+ participants.</p>
+        </div>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" id="about">
+    <hr class="footer-rule">
+    <div class="wrap">
+      <div class="footer-inner">
+        <p class="footer-copy">Gina Namkung &copy; 2026</p>
+        <img src="assets/3-flowers.png" class="footer-flowers" alt="" aria-hidden="true" draggable="false">
+        <nav class="footer-links">
+          <a href="https://linkedin.com/in/ginanamkung" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:dnamkung@ucsd.edu">Email</a>
+          <a href="#">X</a>
+          <a href="#">Resume</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/smooth-scroll.js"></script>
+  <script src="assets/click-flower.js"></script>
+
+  <div class="custom-cursor-outer" id="cursorOuter"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <div class="custom-cursor-inner" id="cursorInner"></div>
+
+  <script>
+    const cursorOuter = document.getElementById('cursorOuter');
+    const cursorInner = document.getElementById('cursorInner');
+
+    document.addEventListener('mousemove', e => {
+      cursorOuter.style.left = e.clientX + 'px';
+      cursorOuter.style.top  = e.clientY + 'px';
+      cursorInner.style.left = e.clientX + 'px';
+      cursorInner.style.top  = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        cursorOuter.classList.add('is-card');
+        cursorInner.classList.add('is-card');
+      });
+      card.addEventListener('mouseleave', () => {
+        cursorOuter.classList.remove('is-card');
+        cursorInner.classList.remove('is-card');
+      });
+    });
+  </script>
+
+  <script src="assets/cs-toc.js"></script>
+
+</body>
+</html>

@@ -45,6 +45,8 @@
 <g filter="url(#filter3_f_2383_1147)">
 <ellipse cx="260.661" cy="67.3824" rx="0.373913" ry="0.382353" fill="#1D6FAB"/>
 </g>
+<rect x="0" y="0" width="461" height="14" fill="white"/>
+<rect x="0" y="886" width="461" height="59" fill="white"/>
 <defs>
 <pattern id="pattern0_2383_1147" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_2383_1147" transform="matrix(0.00125 0 0 0.000928082 0 0.421577)"/>

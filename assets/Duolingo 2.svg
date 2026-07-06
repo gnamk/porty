@@ -83,6 +83,8 @@
 <g filter="url(#filter9_f_2383_1384)">
 <ellipse cx="260.661" cy="66.3824" rx="0.373913" ry="0.382353" fill="#1D6FAB"/>
 </g>
+<rect x="0" y="0" width="461" height="13" fill="white"/>
+<rect x="0" y="885" width="461" height="59" fill="white"/>
 <defs>
 <filter id="filter0_d_2383_1384" x="47" y="287" width="359" height="267" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>

@@ -7,10 +7,21 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div class="page-flash" id="pageFlash"></div>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-spin-wrap">
+      <img src="assets/twoflower.svg" alt="" aria-hidden="true" draggable="false">
+    </div>
+    <h2 class="loading-text">Blooming...</h2>
+  </div>
+  <script src="assets/page-flash.js"></script>
+  <script src="assets/loading-screen.js"></script>
 
   <!-- ── NAV ── -->
   <nav class="nav">
@@ -21,7 +32,7 @@
       <ul class="nav-links">
         <li><a href="#work">Work</a></li>
         <li><a href="playground.html">Playground</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="about.html">About</a></li>
       </ul>
     </div>
   </nav>
@@ -30,24 +41,50 @@
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="hero-text">
-        <span class="hero-name">Hello, I'm Gina!</span>
-        <p class="hero-tagline">I'm a <span class="tagline-accent">product designer</span> who uses visual storytelling to turn complex ideas into clear experiences.</p>
+        <svg class="hero-name-svg" viewBox="100 -60 600 165" aria-hidden="true" focusable="false">
+          <path id="heroNameArc" d="M0,400 A400,400 0 0 1 800,400" fill="none" stroke="none"/>
+          <text class="hero-name-text" text-anchor="middle">
+            <textPath href="#heroNameArc" startOffset="50%">Hello, I'm Gina!</textPath>
+          </text>
+        </svg>
+        <svg class="hero-tagline-svg" viewBox="46 -30 808 248" aria-hidden="true" focusable="false">
+          <path id="heroTaglineArc" d="M0,450 A450,450 0 0 1 900,450" fill="none" stroke="none"/>
+          <text class="hero-tagline-text" text-anchor="middle">
+            <textPath href="#heroTaglineArc" startOffset="50%">Product designer with a love for visual storytelling and thoughtful design.</textPath>
+          </text>
+        </svg>
+        <span class="sr-only">Hello, I'm Gina! Product designer with a love for visual storytelling and thoughtful design.</span>
       </div>
       <div class="hero-art">
         <div class="hero-globe-wrap">
           <div class="hero-globe-core">
             <img src="assets/glow.png"   class="hero-glow"   alt="" aria-hidden="true" draggable="false">
             <img src="assets/globe.png"  class="hero-globe"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/orbit.png"  class="hero-orbit"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc1.png"   class="hero-npc hero-npc--1"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc2.png"   class="hero-npc hero-npc--2"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc3.png"   class="hero-npc hero-npc--3"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc4.png"   class="hero-npc hero-npc--4"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc5.png"   class="hero-npc hero-npc--5"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc6.png"   class="hero-npc hero-npc--6"  alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc10.png"  class="hero-npc hero-npc--10" alt="" aria-hidden="true" draggable="false">
-            <img src="assets/npc11.png"  class="hero-npc hero-npc--11" alt="" aria-hidden="true" draggable="false">
+            <div class="hero-tulip-ring">
+              <!-- 15 even slots (24deg apart); slot at 0deg (top) is left empty
+                   as a gap the width of one tulip -->
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 24deg"  alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 48deg"  alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 72deg"  alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 96deg"  alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 120deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 144deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 168deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 192deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 216deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 240deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 264deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 288deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 312deg" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 336deg" alt="" aria-hidden="true" draggable="false">
+              <!-- NPCs orbit inside the ring too, sharing its top gap slot -->
+              <img src="assets/npc1.png"   class="hero-npc hero-npc--1"  alt="" aria-hidden="true" draggable="false">
+              <img src="assets/npc2.png"   class="hero-npc hero-npc--2"  alt="" aria-hidden="true" draggable="false">
+              <img src="assets/npc10.png"  class="hero-npc hero-npc--10" alt="" aria-hidden="true" draggable="false">
+              <img src="assets/npc11.png"  class="hero-npc hero-npc--11" alt="" aria-hidden="true" draggable="false">
+            </div>
           </div>
+          <p class="hero-scroll-hint">Scroll to see recently potted work ↓</p>
           <img src="assets/cloud.png" class="hero-cloud hero-cloud--left"  alt="" aria-hidden="true" draggable="false">
           <img src="assets/cloud.png" class="hero-cloud hero-cloud--right" alt="" aria-hidden="true" draggable="false">
         </div>
@@ -59,61 +96,102 @@
   <section class="work" id="work">
     <div class="work-grid">
 
-        <a class="card" href="#" style="--card-bg: linear-gradient(to bottom, #FFD1D1, #F5FFE6);">
+        <a class="card" href="satori.html" style="--card-bg: linear-gradient(to bottom, #FFD1D1, #F5FFE6);">
           <div class="card-media">
             <img class="card-img" src="assets/Satori%201.svg" alt="Satori app mockup 1">
             <img class="card-img" src="assets/Satori2.svg" alt="Satori app mockup 2">
           </div>
           <div class="card-body">
-            <h2>Satori</h2>
-            <div class="tags">
-              <span>Winter 2026</span>
-              <span>FigBuild 2026</span>
+            <div class="card-title-row">
+              <h2>Satori</h2>
+              <div class="tags">
+                <span>Winter 2026</span>
+                <span>Designathon</span>
+              </div>
             </div>
-            <p>Empowering users to better understand their emotions and improve habits through data-driven insights.</p>
+            <p>Empowering users to better understand and improve habits through data-driven insights.</p>
           </div>
         </a>
 
-        <a class="card" href="#" style="--card-bg: linear-gradient(to bottom, #D9E9FF, #F1E8FF);">
+        <a class="card" href="qcsa.html" style="--card-bg: linear-gradient(to bottom, #D9E9FF, #F1E8FF);">
           <div class="card-media">
             <img class="card-img" src="assets/qcsa.svg" alt="QCSA website mockup">
           </div>
           <div class="card-body">
-            <h2>QCSA</h2>
-            <div class="tags">
-              <span>Summer 2025</span>
-              <span>EdTech</span>
+            <div class="card-title-row">
+              <h2>QCSA</h2>
+              <div class="tags">
+                <span>Summer 2025</span>
+                <span>Non-profit</span>
+              </div>
             </div>
-            <p>Designing a centralized platform for QCSA, a 501(c)(3) nonprofit. Connecting students and professionals in quantum computing.</p>
+            <p>Redesigned QCSA's central platform, driving a 52% increase in engagement.</p>
           </div>
         </a>
 
-        <a class="card" href="#" style="--card-bg: linear-gradient(to bottom, #AED6E4, #FFE7DB);">
+        <a class="card" href="zenout.html" style="--card-bg: linear-gradient(to bottom, #ACC8E3, #FFDBDB);">
           <div class="card-media">
-            <img class="card-img" src="assets/lahacks.svg" alt="LA Hacks mockup">
+            <img class="card-img phone-zoom" src="assets/Zenout.svg" alt="ZenOut app mockup 1">
+            <img class="card-img phone-zoom" src="assets/Zenout%202.svg" alt="ZenOut app mockup 2">
           </div>
           <div class="card-body">
-            <h2>LA Hacks</h2>
-            <div class="tags">
-              <span>Fall 2025</span>
-              <span>EdTech</span>
+            <div class="card-title-row">
+              <h2>ZenOut</h2>
+              <div class="tags">
+                <span>Spring 2026</span>
+                <span>App Redesign</span>
+              </div>
             </div>
-            <p>Shaping the visual identity for Southern California's largest hackathon serving 1,500+ participants.</p>
+            <p>Improving meditation goal tracking and sharing to encourage consistency.</p>
           </div>
         </a>
 
-        <a class="card" href="#" style="--card-bg: linear-gradient(to bottom, #FFF6D9, #E0EFFF);">
+        <a class="card" href="rose-garden.html" style="--card-bg: linear-gradient(to bottom, #FFF6D9, #E0EFFF);">
           <div class="card-media">
             <img class="card-img" src="assets/RG%201.svg" alt="Rose Garden app mockup 1">
             <img class="card-img" src="assets/RG%202.svg" alt="Rose Garden app mockup 2">
           </div>
           <div class="card-body">
-            <h2>Rose Garden</h2>
-            <div class="tags">
-              <span>Spring 2025</span>
-              <span>Creative Labs</span>
+            <div class="card-title-row">
+              <h2>Rose Garden</h2>
+              <div class="tags">
+                <span>Spring 2025</span>
+                <span>0 → 1</span>
+              </div>
             </div>
-            <p>Journaling app inspired by the "rose, bud, thorn" icebreaker. Encouraging users to self-reflect daily with flowers.</p>
+            <p>Journaling app centered on reflection and habit-building, inspired by rose-bud-thorn icebreaker.</p>
+          </div>
+        </a>
+
+        <a class="card" href="la-hacks.html" style="--card-bg: linear-gradient(to bottom, #AED6E4, #FFE7DB);">
+          <div class="card-media">
+            <img class="card-img" src="assets/lahacks.svg" alt="LA Hacks mockup">
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h2>LA Hacks</h2>
+              <div class="tags">
+                <span>Fall 2025</span>
+                <span>Non-profit</span>
+              </div>
+            </div>
+            <p>Shaping the visual identity for SoCal's largest hackathon serving 1,500+ participants.</p>
+          </div>
+        </a>
+
+        <a class="card" href="sips.html" style="--card-bg: linear-gradient(to bottom, #FFE3D6, #E7FFE6);">
+          <div class="card-media">
+            <img class="card-img" src="assets/SIPS.svg" alt="SIPS mockup">
+          </div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h2>SIPS</h2>
+              <div class="tags">
+                <span>Fall 2026</span>
+                <span>Internship</span>
+              </div>
+            </div>
+            <p>Redesigning map of sober-inclusive places.</p>
           </div>
         </a>
 
@@ -155,7 +233,13 @@
     <hr class="footer-rule">
     <div class="wrap">
       <div class="footer-inner">
-        <p class="footer-copy">Gina Namkung &copy; 2026</p>
+        <p class="footer-copy local-clock" aria-label="Current time in Los Angeles, California">
+          <svg class="local-clock-pin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.06 6.34 11.6 6.61 11.88a1.25 1.25 0 0 0 1.78 0c.27-.28 6.61-6.82 6.61-11.88C19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z" fill="currentColor"/>
+          </svg>
+          <span>Los Angeles, CA</span>
+          <span class="local-clock-time" id="localClockTime"></span>
+        </p>
         <img src="assets/3-flowers.png" class="footer-flowers" alt="" aria-hidden="true" draggable="false">
         <nav class="footer-links">
           <a href="https://linkedin.com/in/ginanamkung" target="_blank" rel="noopener">LinkedIn</a>
@@ -167,83 +251,111 @@
     </div>
   </footer>
 
-  <div class="custom-cursor" id="customCursor"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <script src="assets/smooth-scroll.js"></script>
+  <script src="assets/click-flower.js"></script>
+
+  <div class="custom-cursor-outer" id="cursorOuter"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <div class="custom-cursor-inner" id="cursorInner"></div>
 
   <script>
-    const customCursor = document.getElementById('customCursor');
+    // Live Los Angeles (PST/PDT) clock in the top-right corner.
+    const localClockTime = document.getElementById('localClockTime');
+    function tickLocalClock() {
+      localClockTime.textContent = new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric', minute: '2-digit', second: '2-digit',
+        timeZone: 'America/Los_Angeles', timeZoneName: 'short'
+      }).format(new Date());
+    }
+    tickLocalClock();
+    setInterval(tickLocalClock, 1000);
+
+    const cursorOuter = document.getElementById('cursorOuter');
+    const cursorInner = document.getElementById('cursorInner');
 
     document.addEventListener('mousemove', e => {
-      customCursor.style.left = e.clientX + 'px';
-      customCursor.style.top  = e.clientY + 'px';
+      cursorOuter.style.left = e.clientX + 'px';
+      cursorOuter.style.top  = e.clientY + 'px';
+      cursorInner.style.left = e.clientX + 'px';
+      cursorInner.style.top  = e.clientY + 'px';
     });
 
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', () => customCursor.classList.add('is-card'));
-      card.addEventListener('mouseleave', () => customCursor.classList.remove('is-card'));
+      card.addEventListener('mouseenter', () => {
+        cursorOuter.classList.add('is-card');
+        cursorInner.classList.add('is-card');
+      });
+      card.addEventListener('mouseleave', () => {
+        cursorOuter.classList.remove('is-card');
+        cursorInner.classList.remove('is-card');
+      });
     });
+
+    // Smooth eased scroll for the nav "Work" link
+    function smoothScrollTo(targetEl, duration = 800) {
+      const startY   = window.scrollY;
+      const navH     = document.querySelector('.nav').offsetHeight;
+      const endY     = targetEl.getBoundingClientRect().top + window.scrollY - navH;
+      const startTime = performance.now();
+      const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; // ease-in-out cubic
+
+      function step(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        window.scrollTo({ top: startY + (endY - startY) * ease(progress), left: 0, behavior: 'instant' });
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const workLink    = document.querySelector('a[href="#work"]');
+    const workSection = document.getElementById('work');
+
+    if (workLink && workSection) {
+      workLink.addEventListener('click', e => {
+        e.preventDefault();
+        smoothScrollTo(workSection);
+      });
+    }
+
+    // Arriving here from another page already targeting #work (e.g. nav link
+    // on a case-study page) — skip the instant jump and ease in instead
+    if (window.location.hash === '#work' && workSection) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      requestAnimationFrame(() => smoothScrollTo(workSection));
+    }
 
     const npcScenes = [
       ['hero-npc--1'],
       ['hero-npc--2'],
       ['hero-npc--10'],
       ['hero-npc--11'],
-      ['hero-npc--3'],
-      ['hero-npc--4'],
-      ['hero-npc--5'],
-      ['hero-npc--6'],
     ];
     let currentScene = 0;
     let npcAnimating = false;
-    const allNpcs = Array.from(document.querySelectorAll('.hero-npc'));
 
     function getEls(idx) {
       return npcScenes[idx].map(c => document.querySelector('.' + c));
     }
 
-    function swapNpc(nextIdx) {
+    function swapNpc(nextIdx, dir) {
       if (npcAnimating) return;
       npcAnimating = true;
 
       const fromEls = getEls(currentScene);
       const toEls   = getEls(nextIdx);
 
-      // Phase 1: NPC slides up + orbit grows
-      fromEls.forEach(el => {
-        el.style.transition = 'transform 0.35s ease-in';
-        el.style.transform  = 'translateX(-50%) translateY(-10px)';
-      });
-      orbitEl.style.transition = 'transform 0.35s ease-in';
-      orbitEl.style.transform  = 'translateX(-50%) rotate(3deg) scale(1.04)';
-
+      // Ring stays stationary now — only the NPC crossfades between
+      // scenes on scroll, no more spin.
       setTimeout(() => {
-        // Instant NPC switch at peak of pulse
-        allNpcs.forEach(el => {
-          el.style.transition = 'none';
-          el.style.opacity    = '0';
-          el.style.transform  = 'translateX(-50%)';
-        });
-        toEls.forEach(el => {
-          el.style.opacity   = '1';
-          el.style.transform = 'translateX(-50%) translateY(-10px)';
-        });
+        fromEls.forEach(el => { el.style.opacity = '0'; });
+        toEls.forEach(el => { el.style.opacity = '1'; });
         currentScene = nextIdx;
-
-        // Phase 2: new NPC slides down + orbit returns to normal
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          toEls.forEach(el => {
-            el.style.transition = 'transform 0.35s ease-out';
-            el.style.transform  = 'translateX(-50%)';
-          });
-          orbitEl.style.transition = 'transform 0.35s ease-out';
-          orbitEl.style.transform  = 'translateX(-50%) rotate(3deg) scale(1)';
-          setTimeout(() => { npcAnimating = false; }, 350);
-        }));
+        setTimeout(() => { npcAnimating = false; }, 350);
       }, 350);
     }
 
     let globeRotation = 0;
     const globeEl = document.querySelector('.hero-globe');
-    const orbitEl = document.querySelector('.hero-orbit');
+    const tulipRingEl = document.querySelector('.hero-tulip-ring');
 
     let scrollTimer  = null;
     let pendingDir   = 0;
@@ -263,8 +375,13 @@
         globeEl.style.transition = 'transform 0.6s ease-out';
         globeEl.style.transform  = `translateX(-50%) rotate(${globeRotation}deg)`;
 
+        // Small bounce on the ring (and the npc riding in it) each scroll step.
+        tulipRingEl.classList.remove('is-bouncing');
+        void tulipRingEl.offsetWidth;
+        tulipRingEl.classList.add('is-bouncing');
+
         const next = (currentScene + dir + npcScenes.length) % npcScenes.length;
-        swapNpc(next);
+        swapNpc(next, dir);
       }, 80);
     });
 
@@ -279,6 +396,30 @@
     }, { threshold: 0.35 });
     playgroundObserver.observe(playgroundBox);
 
+    // Case study cards slide up + fade in as they scroll into view.
+    const workCards = document.querySelectorAll('.work-grid .card');
+    const cardObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    // Don't start observing until the user actually scrolls — otherwise the
+    // first row of cards counts as "intersecting" on page load (before the
+    // images finish loading the cards sit even higher) and the reveal plays
+    // off-screen while you're still looking at the hero.
+    function startCardObserver() {
+      workCards.forEach(card => cardObserver.observe(card));
+    }
+    if (window.scrollY === 0) {
+      window.addEventListener('scroll', startCardObserver, { once: true });
+    } else {
+      startCardObserver();
+    }
+
     // NPC walk to house on playground tap, then head to the playground page
     const pgNpcs = document.querySelector('.pg-npcs');
     playgroundBox.addEventListener('click', e => {
@@ -289,6 +430,37 @@
         window.location.href = playgroundBox.href;
       }, 2680);
     });
+
+    // Pin the npcs' resting spot to the house's actual rendered edge, instead
+    // of a guessed px value — this stays exact at every window width because
+    // it's measured live, not calculated by hand.
+    const pgHouseSpace = document.querySelector('.pg-house-space');
+
+    function positionPgNpcs() {
+      if (!playgroundBox || !pgNpcs) return;
+      if (pgNpcs.classList.contains('walking')) return; // don't fight the walk animation mid-transition
+      const boxRect = playgroundBox.getBoundingClientRect();
+      const houseRect = pgHouseSpace.getBoundingClientRect();
+      let npcsLeft;
+      if (window.innerWidth > 1225) {
+        // Full desktop: original layout — npcs sit 105px right of the house.
+        npcsLeft = houseRect.right - boxRect.left + 105;
+      } else {
+        // Below desktop: anchor the npcs near the box's RIGHT edge, mirroring
+        // the tulip at the left edge.
+        const npcsW = pgNpcs.getBoundingClientRect().width;
+        npcsLeft = boxRect.width - npcsW - boxRect.width * 0.06;
+      }
+      pgNpcs.style.left = npcsLeft + 'px';
+      // Walk distance: from wherever the npcs start to just inside the
+      // house's right edge (the door), matching the original desktop feel.
+      const walk = Math.max(40, npcsLeft - (houseRect.right - boxRect.left) + 75);
+      pgNpcs.style.setProperty('--pg-walk', walk + 'px');
+    }
+
+    positionPgNpcs();
+    window.addEventListener('resize', positionPgNpcs);
+    window.addEventListener('load', positionPgNpcs);
   </script>
 
 </body>

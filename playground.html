@@ -7,21 +7,24 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <div class="page-flash" id="pageFlash"></div>
+  <script src="assets/page-flash.js"></script>
+
   <!-- ── NAV ── -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">
+      <a href="index.html" class="nav-logo">
         <img src="assets/logo.svg" alt="" class="nav-icon" aria-hidden="true" draggable="false">
       </a>
       <ul class="nav-links">
         <li><a href="index.html#work">Work</a></li>
         <li><a href="playground.html">Playground</a></li>
-        <li><a href="index.html#about">About</a></li>
+        <li><a href="about.html">About</a></li>
       </ul>
     </div>
   </nav>
@@ -51,19 +54,32 @@
     </div>
   </footer>
 
-  <div class="custom-cursor" id="customCursor"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <script src="assets/smooth-scroll.js"></script>
+  <script src="assets/click-flower.js"></script>
+
+  <div class="custom-cursor-outer" id="cursorOuter"><span class="cursor-label">READ CASE STUDY →</span></div>
+  <div class="custom-cursor-inner" id="cursorInner"></div>
 
   <script>
-    const customCursor = document.getElementById('customCursor');
+    const cursorOuter = document.getElementById('cursorOuter');
+    const cursorInner = document.getElementById('cursorInner');
 
     document.addEventListener('mousemove', e => {
-      customCursor.style.left = e.clientX + 'px';
-      customCursor.style.top  = e.clientY + 'px';
+      cursorOuter.style.left = e.clientX + 'px';
+      cursorOuter.style.top  = e.clientY + 'px';
+      cursorInner.style.left = e.clientX + 'px';
+      cursorInner.style.top  = e.clientY + 'px';
     });
 
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', () => customCursor.classList.add('is-card'));
-      card.addEventListener('mouseleave', () => customCursor.classList.remove('is-card'));
+      card.addEventListener('mouseenter', () => {
+        cursorOuter.classList.add('is-card');
+        cursorInner.classList.add('is-card');
+      });
+      card.addEventListener('mouseleave', () => {
+        cursorOuter.classList.remove('is-card');
+        cursorInner.classList.remove('is-card');
+      });
     });
   </script>
 
