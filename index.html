@@ -49,8 +49,14 @@
         </svg>
         <svg class="hero-tagline-svg" viewBox="46 -30 808 248" aria-hidden="true" focusable="false">
           <path id="heroTaglineArc" d="M0,450 A450,450 0 0 1 900,450" fill="none" stroke="none"/>
-          <text class="hero-tagline-text" text-anchor="middle">
+          <!-- Two versions: the short one takes over on phones, where the
+               full line has to shrink too far to stay readable. CSS swaps
+               which is visible. -->
+          <text class="hero-tagline-text hero-tagline-full" text-anchor="middle">
             <textPath href="#heroTaglineArc" startOffset="50%">Product designer with a love for visual storytelling and thoughtful design.</textPath>
+          </text>
+          <text class="hero-tagline-text hero-tagline-short" text-anchor="middle">
+            <textPath href="#heroTaglineArc" startOffset="50%">Product designer with a love for visual storytelling.</textPath>
           </text>
         </svg>
         <span class="sr-only">Hello, I'm Gina! Product designer with a love for visual storytelling and thoughtful design.</span>
@@ -158,22 +164,6 @@
           </div>
         </a>
 
-        <a class="card" href="sips.html" style="--card-bg: linear-gradient(to bottom, #FFE3D6, #E7FFE6);">
-          <div class="card-media">
-            <img class="card-img" src="assets/SIPS.svg" alt="SIPS mockup">
-          </div>
-          <div class="card-body">
-            <div class="card-title-row">
-              <h2>SIPS</h2>
-              <div class="tags">
-                <span>Fall 2026</span>
-                <span>Internship</span>
-              </div>
-            </div>
-            <p>Redesigning map of sober-inclusive places.</p>
-          </div>
-        </a>
-
         <a class="card" href="la-hacks.html" style="--card-bg: linear-gradient(to bottom, #AED6E4, #FFE7DB);">
           <div class="card-media">
             <img class="card-img" src="assets/lahacks.svg" alt="LA Hacks mockup">
@@ -187,23 +177,6 @@
               </div>
             </div>
             <p>Shaping the visual identity for SoCal's largest hackathon serving 1,500+ participants.</p>
-          </div>
-        </a>
-
-        <a class="card" href="zenout.html" style="--card-bg: linear-gradient(to bottom, #ACC8E3, #FFDBDB);">
-          <div class="card-media">
-            <img class="card-img phone-zoom" src="assets/Zenout.svg" alt="ZenOut app mockup 1">
-            <img class="card-img phone-zoom" src="assets/Zenout%202.svg" alt="ZenOut app mockup 2">
-          </div>
-          <div class="card-body">
-            <div class="card-title-row">
-              <h2>ZenOut</h2>
-              <div class="tags">
-                <span>Spring 2026</span>
-                <span>App Redesign</span>
-              </div>
-            </div>
-            <p>Improving meditation goal tracking and sharing to encourage consistency.</p>
           </div>
         </a>
 
@@ -368,6 +341,32 @@
     window.addEventListener('resize', alignRingToGlobe);
     window.addEventListener('load', alignRingToGlobe);
     alignRingToGlobe();
+
+    /* Holds the gap between the curved text and the top of the globe steady
+       at every width. Desktop, tablet and phone each position these with
+       different formulas (fixed px vs vw), so the gap drifted between them.
+       Measuring both and correcting the art's offset keeps it constant.
+       GAP is the desktop spacing — change that one number to retune. */
+    const GAP = 14;
+    const heroArtEl    = document.querySelector('.hero-art');
+    const taglineEl    = document.querySelector('.hero-tagline-svg');
+    const heroGlobeEl  = document.querySelector('.hero-globe');
+
+    function alignHeroText() {
+      if (!heroArtEl || !taglineEl || !heroGlobeEl) return;
+      heroArtEl.style.marginTop = '';               // back to the CSS value
+      const base = parseFloat(getComputedStyle(heroArtEl).marginTop) || 0;
+
+      /* getBoundingClientRect includes the SVGs' rotate/translate, so this
+         is where the text actually renders, not where its box sits. */
+      const textBottom = taglineEl.getBoundingClientRect().bottom;
+      const globeTop   = heroGlobeEl.getBoundingClientRect().top;
+
+      heroArtEl.style.marginTop = (base + (GAP - (globeTop - textBottom))).toFixed(2) + 'px';
+    }
+    window.addEventListener('resize', alignHeroText);
+    window.addEventListener('load', alignHeroText);
+    alignHeroText();
 
     window.addEventListener('wheel', e => {
       if (stepping) return;

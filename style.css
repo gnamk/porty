@@ -289,9 +289,9 @@ html { overflow-x: clip; }
   display: block;
   width: 810px;
   max-width: 100%;
-  /* Rendered type is 24px x (width / 808), so a 539px floor keeps the
-     tagline from ever rendering below 16px. */
-  min-width: 539px;
+  /* Rendered type is 24px x (width / 808), so a full-width 808px floor
+     keeps the tagline from ever rendering below 24px. */
+  min-width: 808px;
   height: auto;
   /* Visual gap to the name = (name height 165px + this margin) + (tagline
      translateY -500px - name translateY -400px) = 65px + margin. -17px puts
@@ -314,6 +314,10 @@ html { overflow-x: clip; }
   font-weight: 400;
   fill: var(--text);
 }
+
+/* Full tagline by default; the shortened phone version is swapped in by the
+   ≤600px block. */
+.hero-tagline-short { display: none; }
 
 .tagline-accent {
   color: #78B19D;
@@ -1234,9 +1238,19 @@ body.is-loaded .hero-vine--right {
    up by the top-margin fraction first (flush the artwork to the top), then
    scale so the artwork's height fills the box exactly (flush to the bottom
    too) — without touching the SVGs' internal artwork. */
+/* Scales the phone mockups up slightly to fill the card. The card clips
+   overflow, so the zoom is dropped on small screens where the extra 11%
+   pushed the tops of the mockups out of frame. */
 .phone-zoom {
   transform-origin: top center;
   transform: scale(1.113) translateY(-2.7%);
+}
+
+@media (max-width: 720px) {
+  .phone-zoom { transform: none; }
+  /* Belt and braces: nothing in a card's media area may exceed its box. */
+  .card-media { align-items: center; }
+  .card-img   { max-width: 100%; max-height: 100%; object-fit: contain; }
 }
 
 /* meta row: Timeline / Role / Tools / Team */
@@ -3051,6 +3065,10 @@ body.is-loaded .hero-vine--right {
 
   .hero-scroll-hint {
     top: calc(78% + 51px); /* sits at the dome's bottom edge, just above the gap */
+    /* Matches the tagline's rendered size. The tagline SVG is 90vw wide with
+       a 808-unit viewBox and 24px type, so it renders at 24 x 90vw/808 =
+       2.673vw. Tracking the same formula keeps the two in step. */
+    font-size: max(16px, 2.673vw);
   }
 
   /* Playground box: sides match the case study cards (64px), and the
@@ -3201,6 +3219,10 @@ body.is-loaded .hero-vine--right {
    the selectors have equal specificity, so whichever is written last wins.
    Sitting earlier in the file is why these were being ignored. */
 @media (max-width: 600px) {
+  /* Shorter tagline on phones — the full line has to shrink too far here. */
+  .hero-tagline-full  { display: none; }
+  .hero-tagline-short { display: block; }
+
   .hero-name-svg    { transform: translate(-30px, calc(-6px - 39.33vw)) rotate(-21deg); }
   .hero-tagline-svg { transform: translate(-20px, calc(18px - 57.48vw)) rotate(-10deg); }
   .hero-vine        { top: calc(-14% - var(--wrap-w) * 0.8); }
