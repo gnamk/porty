@@ -1248,9 +1248,23 @@ body.is-loaded .hero-vine--right {
 
 @media (max-width: 720px) {
   .phone-zoom { transform: none; }
-  /* Belt and braces: nothing in a card's media area may exceed its box. */
-  .card-media { align-items: center; }
-  .card-img   { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  /* The 624:296 ratio makes a short, wide box. On a phone that box is far
+     shorter than the tall mockups, and `overflow: hidden` clipped their
+     tops. Dropping the fixed ratio lets the box grow to whatever height the
+     artwork needs, so the full image always shows. */
+  .card-media {
+    aspect-ratio: auto;
+    align-items: flex-end;
+    overflow: visible;
+    padding: 5% 5% 0;
+  }
+  .card-img {
+    max-width: 100%;
+    max-height: none;
+    height: auto;
+    object-fit: contain;
+  }
 }
 
 /* meta row: Timeline / Role / Tools / Team */
