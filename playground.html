@@ -29,11 +29,30 @@
     </div>
   </nav>
 
-  <!-- ── PLAYGROUND HERO ── -->
-  <section class="pgpage-hero">
-    <p class="pgpage-title">Playground</p>
-    <p class="pgpage-tagline">A corner for experiments, side quests, and things I made just for fun.</p>
-  </section>
+  <!-- ── CIRCULAR GALLERY ──
+       Photos orbit a shared center; hovering any one pauses the whole ring
+       and pops that photo forward. Each item counter-rotates so the images
+       stay upright while the ring spins. -->
+  <div class="pg-ring-stage">
+    <div class="pg-ring" id="pgRing" style="--n: 14;">
+      <div class="pg-ring-track">
+        <div class="pg-ring-item" style="--i: 0"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 1"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 2"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 3"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 4"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 5"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 6"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 7"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 8"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 9"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 10"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 11"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 12"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+        <div class="pg-ring-item" style="--i: 13"><div class="pg-ring-fix"><div class="pg-ring-photo"><span class="pg-ring-caption">Add a caption</span></div></div></div>
+      </div>
+    </div>
+  </div>
 
   <p class="pgpage-empty">More to come soon — check back later!</p>
 
@@ -70,6 +89,103 @@
       cursorInner.style.left = e.clientX + 'px';
       cursorInner.style.top  = e.clientY + 'px';
     });
+
+    /* Pause the ring only while a photo itself is hovered — not the empty
+       space inside the circle. */
+    const pgRing = document.getElementById('pgRing');
+    if (pgRing) {
+      pgRing.querySelectorAll('.pg-ring-photo').forEach(photo => {
+        photo.addEventListener('mouseenter', () => {
+          pgRing.classList.add('is-paused');
+          cursorOuter.classList.add('is-ring');
+          cursorInner.classList.add('is-ring');
+        });
+        photo.addEventListener('mouseleave', () => {
+          // Stay paused while a photo is flipped open in the center.
+          if (!pgRing.classList.contains('is-locked')) {
+            pgRing.classList.remove('is-paused');
+          }
+          cursorOuter.classList.remove('is-ring');
+          cursorInner.classList.remove('is-ring');
+        });
+      });
+    }
+
+    /* Click a photo → a copy of it flips into the center of the screen.
+       Click anywhere outside → it flips back into its slot in the ring. */
+    (function () {
+      if (!pgRing) return;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'pg-lightbox';
+      document.body.appendChild(overlay);
+
+      let card = null;
+      let source = null;
+      let closing = false;
+
+      function openCard(photo) {
+        if (card) return;
+        const r = photo.getBoundingClientRect();
+
+        source = photo;
+        card = photo.cloneNode(true);
+        card.className = 'pg-ring-photo pg-lightbox-card';
+        card.style.left = r.left + 'px';
+        card.style.top = r.top + 'px';
+        card.style.width = r.width + 'px';
+        card.style.height = r.height + 'px';
+        overlay.appendChild(card);
+        photo.classList.add('is-lifted');
+        pgRing.classList.add('is-paused', 'is-locked');
+        cursorOuter.classList.remove('is-ring');
+        cursorInner.classList.remove('is-ring');
+
+        // Where it should land: centered, scaled up from its ring size.
+        const targetW = Math.min(window.innerWidth * 0.62, 620);
+        const scale = targetW / r.width;
+        const dx = window.innerWidth / 2 - (r.left + r.width / 2);
+        const dy = window.innerHeight / 2 - (r.top + r.height / 2);
+
+        requestAnimationFrame(() => {
+          overlay.classList.add('is-open');
+          // A full 360deg turn reads as a card flip and lands facing forward.
+          card.style.transform =
+            'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ') rotateY(360deg)';
+        });
+      }
+
+      function closeCard() {
+        if (!card || closing) return;
+        closing = true;
+        overlay.classList.remove('is-open');
+        card.style.transform = 'translate(0px, 0px) scale(1) rotateY(0deg)';
+        card.addEventListener('transitionend', function done() {
+          card.removeEventListener('transitionend', done);
+          card.remove();
+          card = null;
+          if (source) source.classList.remove('is-lifted');
+          source = null;
+          closing = false;
+          pgRing.classList.remove('is-paused', 'is-locked');
+        }, { once: true });
+      }
+
+      pgRing.querySelectorAll('.pg-ring-photo').forEach(photo => {
+        photo.addEventListener('click', e => {
+          e.stopPropagation();
+          openCard(photo);
+        });
+      });
+
+      // Anywhere outside the flipped card closes it.
+      overlay.addEventListener('click', e => {
+        if (!card || !card.contains(e.target)) closeCard();
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeCard();
+      });
+    })();
 
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('mouseenter', () => {

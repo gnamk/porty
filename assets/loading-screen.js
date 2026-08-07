@@ -15,9 +15,14 @@
     cameFromSameSite = false;
   }
 
+  // Lets the hero's entrance animations (the flower vines) hold still until
+  // the loading screen is out of the way.
+  const startHero = () => document.body.classList.add('is-loaded');
+
   if (cameFromSameSite) {
     const screen = document.getElementById('loadingScreen');
     if (screen) screen.remove();
+    startHero();
     return;
   }
 
@@ -51,6 +56,8 @@
         // Hold for a beat after the turn finishes, then fade out.
         setTimeout(() => {
           screen.classList.add('is-hidden');
+          // Kick off the hero animations as the curtain starts lifting.
+          startHero();
           screen.addEventListener('transitionend', () => screen.remove(), { once: true });
         }, 500);
       }, 1500);

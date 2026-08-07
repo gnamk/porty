@@ -34,7 +34,7 @@
     <div class="cs2-info" style="margin-top:-40px;">
       <h1 class="cs2-title">QCSA</h1>
 
-      <p class="cs2-overview-body">Designing a centralized platform for the Quantum Computing Student Association, a 501(c)(3) nonprofit. Connecting students and professionals in quantum computing.</p>
+      <p class="cs2-overview-body">Designing a centralized platform for the Quantum Computing Student Association, a 501(c)(3) nonprofit.</p>
 
       <dl class="cs2-meta">
         <div>
@@ -66,8 +66,9 @@
         <a href="#cs2-context" data-target="cs2-context">Context</a>
         <a href="#cs2-problem" data-target="cs2-problem">Problem</a>
         <a href="#cs2-solution" data-target="cs2-solution">Solution</a>
-        <a href="#cs2-design-systems" data-target="cs2-design-systems">Design Systems</a>
-        <a href="#cs2-website" data-target="cs2-website">Website</a>
+        <a href="#cs2-research" data-target="cs2-research">Research</a>
+        <a href="#cs2-design-systems" data-target="cs2-design-systems">Branding</a>
+        <a href="#cs2-website" data-target="cs2-website">Design</a>
         <a href="#cs2-takeaways" data-target="cs2-takeaways">Takeaways</a>
       </div>
     </nav>
@@ -79,132 +80,429 @@
     <div class="cs-section" id="cs2-context">
       <hr class="cs2-title-rule">
       <h2>Context</h2>
-      <p class="cs-body">The Quantum Computing Student Association (QCSA), based in Southern California, is a campus nonprofit organization that seeks to make quantum science accessible to students of all levels. QCSA's community is connected through university branches at UCLA, USC, Caltech, and UCSD.</p>
-      <div class="cs-visual">QCSA logo — add final logo file here</div>
+      <p class="cs-body">The Quantum Computing Student Association (QCSA), based in Southern California, is a quantum nonprofit organization that seeks to make quantum science accessible to students of all levels. QCSA's community is connected through university branches at UCLA, USC, Caltech, and UCSD.</p>
+
+      <h3 class="cs-subhead">Impact</h3>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-top:16px;">
+        <img src="assets/qcsa-qdw-crop.jpg" alt="QCSA Quantum Device Workshop group photo" style="flex:1; min-width:0; width:100%; object-fit:cover; display:block;">
+        <div style="flex:1; display:flex; flex-direction:column; gap:24px;">
+          <div class="cs-card" style="--cs-card-bg: #E3EAFF;">
+            <h3>+52% page views</h3>
+            <p>The redesigned website increased visibility and discoverability, resulting in <strong>52% more page views</strong>.</p>
+          </div>
+          <div class="cs-card" style="--cs-card-bg: #E3EAFF;">
+            <h3>+500% attendance</h3>
+            <p>The 2026 Quantum Device Workshop welcomed a total of <strong>600 participants</strong>, up from 100 attendees at the 2025 workshop.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="cs-section" id="cs2-problem">
       <hr class="cs2-title-rule">
       <h2>Problem</h2>
-      <div class="cs-card-grid">
-        <div class="cs-card" style="--cs-card-bg: #FFE3E3;">
-          <h3>Incompatible Branding</h3>
-          <p>The old logo featured UCLA's bear mascot, making it a campus-specific design. We needed a design that any university chapter could adopt.</p>
-        </div>
-        <div class="cs-card" style="--cs-card-bg: #E3EAFF;">
-          <h3>Outdated Website</h3>
-          <p>The old site lacked a professional appeal and had many redundant pages.</p>
-        </div>
+      <p class="cs-body">As the organization grew beyond UCLA and partnered with major companies like Google, NVIDIA, and Rigetti, its existing website no longer reflected the scale and credibility of its work.</p>
+      <div class="cs2-prompt-row">
+        <p class="cs2-prompt-quote">How can we redesign QCSA's website to increase visibility<br>and help more students engage with the organization's resources?</p>
+        <img src="assets/man-looking-for-a-glass.svg" alt="" class="cs2-prompt-icon" aria-hidden="true">
       </div>
     </div>
 
     <div class="cs-section" id="cs2-solution">
       <hr class="cs2-title-rule">
       <h2>Our Solution</h2>
-      <h3 class="cs-subhead">Logo</h3>
-      <p class="cs-body">Creating a design that emphasizes QCSA's mission.</p>
-      <ul class="cs-bullets">
-        <li>I wanted the design to communicate both quantum science and education at a glance.</li>
-        <li>The design combines quantum elements, such as qubits, with educational symbols like the hand and computer.</li>
-      </ul>
-      <div class="cs-visual">Logo exploration sketches — add final artwork here</div>
+
+      <div style="display:flex; align-items:center; gap:32px; margin-top:32px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <video src="assets/qcsa-homepage.mp4" autoplay loop muted playsinline style="width:100%; display:block;"></video>
+        </div>
+        <div style="flex:0 0 40%;">
+          <h3 class="cs-subhead" style="margin-top:0;">A centralized hub for quantum education</h3>
+          <p class="cs-body" style="margin:0;">The redesigned homepage clearly introduces QCSA's mission and opportunities from the first interaction.</p>
+        </div>
+      </div>
+
+      <!-- Reversed: text on the left, video on the right. -->
+      <div style="display:flex; align-items:center; gap:32px; margin-top:128px;">
+        <div style="flex:0 0 40%;">
+          <h3 class="cs-subhead" style="margin-top:0;">Making opportunities easier to find</h3>
+          <p class="cs-body" style="margin:0;">Restructuring the organization of the events page gave users easier access to upcoming events while still able to explore past events.</p>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-start;">
+          <video src="assets/qcsa-events.mp4" autoplay loop muted playsinline style="width:100%; display:block;"></video>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:32px; margin-top:128px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <!-- Brand boards cycle automatically every 2s -->
+          <div id="qcsa-brand-cycle" style="position:relative; width:100%;">
+            <img src="assets/qcsa-brand1.png" alt="QCSA branding guideline board" style="width:100%; display:block;">
+            <img src="assets/qcsa-brand2.png" alt="" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0;">
+            <img src="assets/qcsa-brand3.png" alt="" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0;">
+          </div>
+        </div>
+        <div style="flex:0 0 40%;">
+          <h3 class="cs-subhead" style="margin-top:0;">Building a reusable system</h3>
+          <p class="cs-body" style="margin:0;">Branding guidelines ensure visuals stay consistent across university chapters.</p>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var wrap = document.getElementById('qcsa-brand-cycle');
+          if (!wrap) return;
+          var imgs = wrap.querySelectorAll('img');
+          var i = 0;
+          setInterval(function () {
+            imgs[i].style.opacity = i === 0 ? '1' : '0';
+            i = (i + 1) % imgs.length;
+            /* The first image stays in flow to set the box height, so it is
+               never hidden — the overlays just cover it. */
+            imgs[i].style.opacity = '1';
+          }, 2000);
+        })();
+      </script>
+    </div>
+
+    <div class="cs-section" id="cs2-research">
+      <hr class="cs2-title-rule">
+      <h2>Research</h2>
+      <h3 class="cs-subhead">Understanding the Current Site</h3>
+      <p class="cs-body">We began by critiquing QCSA's existing website and performing a SWOT analysis:</p>
+      <div class="qcsa-slideshow" id="qcsa-research-slides">
+        <div class="qcsa-slide-frame">
+          <div class="qcsa-slide active">
+            <img src="assets/qcsa-swot-strengths.svg" alt="SWOT analysis — strengths">
+          </div>
+          <div class="qcsa-slide">
+            <img src="assets/qcsa-swot-weaks.svg" alt="SWOT analysis — weaknesses">
+          </div>
+          <div class="qcsa-slide">
+            <img src="assets/qcsa-swot-opport.svg" alt="SWOT analysis — opportunities">
+          </div>
+          <div class="qcsa-slide">
+            <img src="assets/qcsa-swot-threats.svg" alt="SWOT analysis — threats">
+          </div>
+          <div class="qcsa-slide-zone prev" onclick="qcsaSlideStep(-1)" aria-label="Previous slide"></div>
+          <div class="qcsa-slide-zone next" onclick="qcsaSlideStep(1)" aria-label="Next slide"></div>
+          <div class="qcsa-slide-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="qcsa-captions">
+          <div class="qcsa-slide-caption active">
+            <h3>Strengths</h3>
+            <p>QCSA already offers meaningful events and resources that provide a strong foundation to work with.</p>
+          </div>
+          <div class="qcsa-slide-caption">
+            <h3>Weaknesses</h3>
+            <p>Confusing navigation and poor content organization makes resources difficult to find.</p>
+          </div>
+          <div class="qcsa-slide-caption">
+            <h3>Opportunities</h3>
+            <p>Since QCSA has strong content, the redesign should focus on improving engagement and strengthening visuals.</p>
+          </div>
+          <div class="qcsa-slide-caption">
+            <h3>Threats</h3>
+            <p>Visual clutter and a weak homepage prevents visitors from quickly understanding QCSA's purpose.</p>
+          </div>
+        </div>
+      </div>
+      <script>
+        function qcsaSlideStep(d) {
+          var slides = document.querySelectorAll('#qcsa-research-slides .qcsa-slide');
+          var caps = document.querySelectorAll('#qcsa-research-slides .qcsa-slide-caption');
+          var i = 0;
+          slides.forEach(function (s, n) { if (s.classList.contains('active')) i = n; });
+          var j = (i + d + slides.length) % slides.length;
+          var dots = document.querySelectorAll('#qcsa-research-slides .qcsa-slide-dots span');
+          dots[i].classList.remove('active');
+          dots[j].classList.add('active');
+          var inCls = d > 0 ? 'enter-right' : 'enter-left';
+          var outCls = d > 0 ? 'exit-left' : 'exit-right';
+          [[slides[i], slides[j]], [caps[i], caps[j]]].forEach(function (pair) {
+            var out = pair[0], inc = pair[1];
+            out.classList.remove('active', 'enter-right', 'enter-left');
+            out.classList.add('leaving', outCls);
+            out.addEventListener('animationend', function h() {
+              out.classList.remove('leaving', 'exit-left', 'exit-right');
+              out.removeEventListener('animationend', h);
+            });
+            inc.classList.remove('leaving', 'exit-left', 'exit-right', 'enter-right', 'enter-left');
+            void inc.offsetWidth; /* restart animation if re-entering */
+            inc.classList.add('active', inCls);
+          });
+        }
+      </script>
+      <h3 class="cs-subhead" style="margin-top:64px;">User Research</h3>
+      <p class="cs-body">I interviewed a diverse group of <strong>5+ users</strong> — including those who had never heard of QCSA before and experienced board members — to ensure the design is intuitive for both new and returning users.</p>
+      <div class="cs-card-grid cs-card-grid--3">
+        <div class="cs-card qcsa-quote" style="--cs-card-bg: #E3EAFF;">
+          <div class="qcsa-quote-person">
+            <img src="assets/qcsa-pfp-harshita.jpg" class="qcsa-quote-pfp qcsa-quote-pfp--photo" alt="Harshita Kukreja">
+            <p class="qcsa-quote-name"><a href="https://www.linkedin.com/in/harshita-kukreja-28h/" target="_blank" rel="noopener">Harshita Kukreja - Undergraduate Student</a></p>
+          </div>
+          <div>
+            <h3>New Visitor</h3>
+            <p>"I couldn't really tell what QCSA was from a glance. The first image of students in a classroom doesn't explain what the organization does."</p>
+          </div>
+        </div>
+        <div class="cs-card qcsa-quote" style="--cs-card-bg: #E3EAFF;">
+          <div class="qcsa-quote-person">
+            <img src="assets/qcsa-pfp-alexander.jpg" class="qcsa-quote-pfp qcsa-quote-pfp--photo" alt="Alexander Jürgens">
+            <p class="qcsa-quote-name"><a href="https://www.linkedin.com/in/alexander-jurgens/" target="_blank" rel="noopener">Alexander Jürgens - PhD Candidate</a></p>
+          </div>
+          <div>
+            <h3>Board Member</h3>
+            <p>"Our current logo features UCLA's mascot, but QCSA needs an identity that multiple university chapters can adopt."</p>
+          </div>
+        </div>
+        <div class="cs-card qcsa-quote" style="--cs-card-bg: #E3EAFF;">
+          <div class="qcsa-quote-person">
+            <img src="assets/qcsa-pfp-nicolas.jpg" class="qcsa-quote-pfp qcsa-quote-pfp--photo" alt="Nicolas Dirnegger">
+            <p class="qcsa-quote-name"><a href="https://www.linkedin.com/in/nicolas-dirnegger-aa8442100" target="_blank" rel="noopener">Nicolas Dirnegger - PhD Candidate</a></p>
+          </div>
+          <div>
+            <h3>Board Member</h3>
+            <p>"The current website feels cluttered and hard to navigate. Moving away from Squarespace would give us more freedom to redesign the site around QCSA's needs."</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="cs-body" style="margin-top:64px;">After compiling our findings, we defined three main goals for the redesign:</p>
+
+      <div class="cs2-prompt-row qcsa-goals-row">
+        <ol class="cs-bullets qcsa-goals">
+          <li>Make it immediately clear what QCSA does, and why students and professionals should join.</li>
+          <li>Refresh QCSA's outdated and UCLA-specific branding.</li>
+          <li>Improve site navigation so events and resources are easier to find.</li>
+        </ol>
+        <img src="assets/satori-rocketship.svg" alt="" class="cs2-prompt-icon" aria-hidden="true">
+      </div>
     </div>
 
     <div class="cs-section-wide" id="cs2-design-systems">
       <hr class="cs2-title-rule">
-      <h2>Design Systems</h2>
-      <p class="cs-body">To support expansion across university chapters, I created design systems that made it easy for each branch to adopt QCSA's overall branding. This ensured visual consistency across campuses while making the organization more scalable.</p>
-
-      <p class="cs-body">QCSA's new logo draws inspiration from a qubit. A simple logo without a mascot can be easily adopted by fellow university chapters.</p>
-      <div class="cs-dark-card">
-        <h3>Logo Usage<br>&amp; Placement</h3>
-        <p class="cs-dark-sub">All logos come in two types — light and dark. Make sure to use the version that maintains a color contrast of at least 4.5:1 between the background and the color of the logo.</p>
-        <div class="cs-visual" style="background:#222; border-color:#444; color:#bbb;">Logo lockup grid — add final artwork here</div>
-      </div>
-
-      <p class="cs-body">We kept QCSA's original blue theme but shifted the muted tones — the brighter color scheme feels futuristic but still subtle.</p>
-      <div class="cs-dark-card">
-        <h3>Color Palette</h3>
-        <p class="cs-dark-sub">Website Colors</p>
-        <div class="cs-swatch-grid">
-          <div>
-            <div class="cs-swatch" style="background:#23428D;"></div>
-            <span class="cs-swatch-label">Navy Blue</span>
-            <span class="cs-swatch-hex">#23428D</span>
-          </div>
-          <div>
-            <div class="cs-swatch" style="background:#88C8EF;"></div>
-            <span class="cs-swatch-label">Accent Blue</span>
-            <span class="cs-swatch-hex">#88C8EF</span>
-          </div>
-          <div>
-            <div class="cs-swatch" style="background:#F2F8FF;"></div>
-            <span class="cs-swatch-label">Website Background</span>
-            <span class="cs-swatch-hex" style="color:#1a1a1a;">#F2F8FF</span>
-          </div>
-          <div>
-            <div class="cs-swatch" style="background:#FBFAFF; border:1px solid #444;"></div>
-            <span class="cs-swatch-label">Accent Usage</span>
-            <span class="cs-swatch-hex">#FBFAFF</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cs-dark-card">
-        <h3>Typography</h3>
-        <p class="cs-dark-sub">The Kantumruy font is the primary font used throughout the QCSA website. It is used interchangeably across its regular, bold, and light styles within the same font family to maintain consistency and design flexibility. Changes in weight such as bold or italics can be applied to emphasize specific words or phrases, enhancing readability as needed.</p>
-        <div class="cs-visual" style="background:#222; border-color:#444; color:#fff; flex-direction:column; align-items:flex-start; text-align:left;">
-          <p style="font-size:28px; font-weight:700; margin:0 0 6px;">Heading 1</p>
-          <p style="font-size:18px; font-weight:400; margin:0; color:#ccc;">Heading 2 — body copy sample, adjust weight and tracking as needed.</p>
-        </div>
-      </div>
+      <h2>Branding</h2>
+      <h3 class="cs-subhead">A New Visual Identity</h3>
+      <p class="cs-body">We worked closely with the QCSA team to create a visual system that felt credible while being scalable across chapters. By keeping QCSA's blue identity but brightening the palette, the redesign made the brand feel <strong>more modern</strong> and <strong>futuristic</strong> while staying connected to its original look.</p>
+      <img src="assets/qcsa-designsystem.svg" alt="QCSA design system — color palette, logo usage, and typography" style="width:100%; height:auto; display:block; margin-top:24px;">
     </div>
 
     <div class="cs-section-wide" id="cs2-website">
       <hr class="cs2-title-rule">
-      <h2>Website</h2>
-      <p class="cs-body">My main focus was restructuring the page sections to better communicate QCSA's mission, while making sure the redesign stayed practical enough to be implemented and launched on time.</p>
+      <h2>Design</h2>
 
-      <h3 class="cs-subhead">Home Page</h3>
-      <ul class="cs-bullets">
-        <li>A new hero section highlighting QCSA's mission.</li>
-        <li>Featuring past sponsors and testimonials from current students to strengthen credibility.</li>
-        <li>A "Get Involved" button users can interact with to explore the rest of the site.</li>
-      </ul>
-      <div class="cs-visual">Home page mockup — add final screenshot here</div>
-
-      <h3 class="cs-subhead">Events Page</h3>
-      <p class="cs-body">I improved the flow of the Events page by reorganizing the subsection hierarchy to prioritize upcoming events, ensuring students could quickly find what was most relevant. To streamline navigation, I also added the photo gallery as a section rather than keeping it as its own page.</p>
-      <div class="cs-flow">
-        <div class="cs-flow-col">
-          <div class="cs-flow-box">Recurring Events</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Upcoming Events</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Event Calendar</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Past Events</div>
+      <h3 class="cs-subhead">User Flow</h3>
+      <p class="cs-body">I restructured the site flow to reduce clutter. Instead of spreading information across redundant sections, I organized the website around <strong>three core paths</strong>: learning more about QCSA, discovering events, and important resources.</p>
+      <div class="qcsa-sitemap-fit" id="qcsa-sitemap-fit">
+      <div class="qcsa-sitemap" id="qcsa-sitemap">
+        <svg class="qcsa-sitemap-lines" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d=""/></svg>
+        <div class="qcsa-sitemap-col">
+          <h4>Home</h4>
+          <div class="qcsa-sitemap-box"><strong>Hero Section</strong><span>Mission statement.</span></div>
+          <div class="qcsa-sitemap-box"><strong>About</strong><span>What is QCSA?</span></div>
+          <div class="qcsa-sitemap-box"><strong>Sponsors</strong><span>Company logos, build industry credibility.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Testimonials</strong><span>From sponsors, students, and faculty.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Join Us</strong><span>A call to action.</span></div>
         </div>
-        <div class="cs-flow-col">
-          <div class="cs-flow-box">Upcoming Events</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Recurring Events</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Event Calendar</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Gallery</div>
-          <span class="cs-flow-arrow">↓</span>
-          <div class="cs-flow-box">Past Events</div>
+        <div class="qcsa-sitemap-col">
+          <h4>About</h4>
+          <div class="qcsa-sitemap-box"><strong>Leadership</strong><span>A photo of each lead with a title.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Associated Faculty</strong><span>Faculty and labs associated with QCSA.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Officers</strong><span>Officers with name and title.</span></div>
+        </div>
+        <div class="qcsa-sitemap-col">
+          <h4>Events</h4>
+          <div class="qcsa-sitemap-box"><strong>Upcoming Events</strong><span>Events with details like time, location, date.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Recurring Events</strong><span>Showcase recurring events.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Event Calendar</strong><span>Google Calendar plugin.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Past Events</strong><span>Highlight memories from past events.</span></div>
+        </div>
+        <div class="qcsa-sitemap-col">
+          <h4>Resources</h4>
+          <div class="qcsa-sitemap-box"><strong>Coursework at UCLA</strong><span>Quantum-related courses and where they fit in the degree plan.</span></div>
+          <div class="qcsa-sitemap-box"><strong>QHackathons</strong><span>Past hackathons and projects.</span></div>
+          <div class="qcsa-sitemap-box"><strong>Newsletters</strong><span>Past newsletters for students to learn from.</span></div>
         </div>
       </div>
-      <div class="cs-visual">Events page mockup — add final screenshot here</div>
-
-      <h3 class="cs-subhead">Navigation Bar</h3>
-      <p class="cs-body">I also restructured the information architecture of the site, reducing the number of tabs on the navigation bar and removing unnecessary information.</p>
-      <div class="cs-visual-row">
-        <div class="cs-visual">Before — old nav bar</div>
-        <div class="cs-visual">After — new nav bar</div>
       </div>
+      <script>
+        (function () {
+          var map = document.getElementById('qcsa-sitemap');
+          if (!map) return;
+          var fit = document.getElementById('qcsa-sitemap-fit');
+          var svg = map.querySelector('.qcsa-sitemap-lines');
+          var path = svg.querySelector('path');
+          /* Below this width the 4-column layout no longer fits, so the whole
+             diagram is scaled down proportionally (keeping the connector
+             lines legible) instead of reflowing into a 2x2 grid. */
+          var DESIGN_W = 880;
+          function draw() {
+            var cols = map.querySelectorAll('.qcsa-sitemap-col');
+            if (cols.length < 2) { return; }
+
+            /* Reset any previous scaling before measuring. */
+            fit.classList.remove('is-scaled');
+            map.style.width = '';
+            map.style.transform = '';
+            fit.style.height = '';
+
+            /* Always lay the diagram out at its design width and scale it to
+               whatever space is available — up as well as down — so the full
+               4-column shape is visible without clipping or scrollbars. */
+            var avail = fit.parentElement.clientWidth;
+            var scale = avail / DESIGN_W;
+            map.style.width = DESIGN_W + 'px';
+            fit.classList.add('is-scaled');
+
+            /* Top-align the child columns with each other, offset as a group
+               so the tallest child sits vertically centered against Home. */
+            var i, tallest = 0;
+            for (i = 1; i < cols.length; i++) {
+              cols[i].style.marginTop = '0px';
+              if (cols[i].offsetHeight > tallest) tallest = cols[i].offsetHeight;
+            }
+            var offset = Math.max(0, (cols[0].offsetHeight - tallest) / 2) + 56;
+            for (i = 1; i < cols.length; i++) {
+              cols[i].style.marginTop = offset + 'px';
+            }
+            var m = map.getBoundingClientRect();
+            var home = cols[0].getBoundingClientRect();
+            var kids = [], minTop = Infinity, lastX = 0;
+            for (var i = 1; i < cols.length; i++) {
+              var r = cols[i].getBoundingClientRect();
+              kids.push(r);
+              if (r.top < minTop) minTop = r.top;
+            }
+            /* Horizontal "bus" is anchored near the top of the Home column
+               (not the children) so pushing the children further down makes
+               the vertical drops visibly longer. */
+            var busY = home.top - m.top + 24;
+            var d = 'M' + (home.right - m.left) + ' ' + busY;
+            kids.forEach(function (r) {
+              var cx = r.left + r.width / 2 - m.left;
+              if (cx > lastX) lastX = cx;
+            });
+            d += ' L' + lastX + ' ' + busY;
+            kids.forEach(function (r) {
+              var cx = r.left + r.width / 2 - m.left;
+              d += ' M' + cx + ' ' + busY + ' L' + cx + ' ' + (r.top - m.top);
+            });
+            path.setAttribute('d', d);
+
+            /* Apply the scale last (geometry above is measured unscaled),
+               then reserve exactly the rendered height so the following
+               section doesn't overlap it. */
+            map.style.transform = 'scale(' + scale + ')';
+            fit.style.height = Math.ceil(map.getBoundingClientRect().height) + 'px';
+          }
+          window.addEventListener('resize', draw);
+          window.addEventListener('load', draw);
+          draw();
+        })();
+      </script>
+
+      <h3 class="cs-subhead" style="margin-top:64px;">Low-fi Drafts</h3>
+      <p class="cs-body">The low-fidelity prototype helped us map out the site's structure before moving on to visuals. I played around with section placement across pages so we could gather feedback from the QCSA team early on.</p>
+      <!-- The recording's canvas is #FCFCFC, a hair darker than the page, so
+           its outline shows as a faint box. The wrapper clips a few pixels
+           off every side and the brightness bump lifts the rest to white. -->
+      <div style="overflow:hidden; margin:16px auto 0; width:80%;">
+        <video src="assets/qcsa-lowfi-v2.mp4" autoplay loop muted playsinline
+               style="width:100%; display:block; border:none; outline:none;
+                      filter:brightness(1.02); transform:scale(1.01);"></video>
+      </div>
+
+      <h3 class="cs-subhead" style="margin-top:64px;">Key Changes</h3>
+
+      <p class="cs-body" style="margin-top:32px; font-weight:700;">01 Home Page</p>
+      <div style="display:flex; align-items:center; margin-top:16px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <img src="assets/qcsa-homepage-highfi.png" alt="Redesigned QCSA home page" style="width:60%; display:block;">
+        </div>
+        <div style="flex:0 0 45%; display:flex; flex-direction:column; gap:8px;">
+          <div class="qcsa-connect-row" style="position:relative; top:-224px;">
+            <div class="qcsa-connector"></div>
+            <div style="flex:1; background:#E3EAFF; padding:16px;">
+              <p class="cs-body" style="margin:0;">A new hero section clearly <strong>demonstrating what QCSA is</strong> and does.</p>
+            </div>
+          </div>
+          <div class="qcsa-connect-row" style="position:relative; top:-100px;">
+            <div class="qcsa-connector"></div>
+            <div style="flex:1; background:#E3EAFF; padding:16px;">
+              <p class="cs-body" style="margin:0;">Featuring past sponsors and testimonials from current students to <strong>strengthen credibility</strong>.</p>
+            </div>
+          </div>
+          <div class="qcsa-connect-row" style="position:relative; top:96px;">
+            <div class="qcsa-connector"></div>
+            <div style="flex:1; background:#E3EAFF; padding:16px;">
+              <p class="cs-body" style="margin:0;">A <strong>clear call to action</strong> inviting visitors to join.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="cs-body" style="margin-top:32px; font-weight:700;">02 Events Page</p>
+      <div style="display:flex; align-items:center; margin-top:16px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+          <div class="cs-flow qcsa-flow" style="margin-top:0;">
+            <div class="cs-flow-col">
+              <div class="cs-flow-box">Recurring Events</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Upcoming Events</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Event Calendar</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Past Events</div>
+            </div>
+            <div class="cs-flow-col">
+              <div class="cs-flow-box">Upcoming Events</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Recurring Events</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Event Calendar</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Gallery</div>
+              <span class="cs-flow-arrow">↓</span>
+              <div class="cs-flow-box">Past Events</div>
+            </div>
+          </div>
+        </div>
+        <div class="qcsa-connect-row" style="flex:0 0 45%;">
+          <div class="qcsa-connector"></div>
+          <div style="flex:1; background:#E3EAFF; padding:16px;">
+            <p class="cs-body" style="margin:0;">To streamline navigation, I reorganized the subsection hierarchy to <strong>prioritize upcoming events</strong>, ensuring students quickly find what is most relevant.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Same treatment as the low-fi clip: clip the off-white canvas edge
+           and lift it to pure white so no box outline shows. -->
+      <div style="overflow:hidden; margin-top:32px;">
+        <video src="assets/qcsa-events.mp4" autoplay loop muted playsinline
+               style="width:100%; display:block; border:none; outline:none;
+                      filter:brightness(1.02); transform:scale(1.01);"></video>
+      </div>
+
+      <p class="cs-body" style="margin-top:64px; font-weight:700;">03 Navigation Bar</p>
+      <!-- Stacked instead of side by side: the before/after nav bars sit on
+           top, with a vertical connector dropping into a full-width caption. -->
+      <img src="assets/qcsa-navbars.svg" alt="Old and redesigned QCSA navigation bars" style="width:100%; display:block; margin-top:16px;">
+      <div class="qcsa-connect-col" style="width:70%; margin:0 auto;">
+        <div class="qcsa-connector qcsa-connector--vertical"></div>
+        <div style="background:#E3EAFF; padding:16px;">
+          <p class="cs-body" style="margin:0;">The new navigation bar <strong>simplifies the site</strong> by removing unnecessary tabs and grouping related content.</p>
+        </div>
+      </div>
+
+
+      <!-- Below the link sits its own 16px margin plus the section's 64px
+           bottom margin and the next section's 16px rule margin (~96px), so
+           the top margin matches that rather than the authored 32px. -->
+      <a class="cs-proto-link" href="https://www.qcsa-ucla.org/" target="_blank" rel="noopener" style="display:block; margin-top:96px; margin-bottom:16px; font-size:24px; text-align:center;">Visit the live QCSA website &rarr;</a>
     </div>
 
     <div class="cs-section" id="cs2-takeaways">
@@ -212,17 +510,17 @@
       <h2>Takeaways</h2>
       <div class="cs-takeaways">
         <div class="cs-takeaway">
-          <span class="cs-takeaway-icon"></span>
+          <img class="cs2-takeaway-img" src="assets/qcsa-computer-chat.svg" alt="" aria-hidden="true" draggable="false">
           <div>
-            <h3>Aligning Design Decisions with Client Vision</h3>
-            <p>Refining existing work instead of overhauling the scope allowed us to maintain cohesion and better reflect the QCSA vision.</p>
+            <h3>Balancing Accuracy and Accessibility</h3>
+            <p>I never expected to learn an inkling about quantum computing. But working with the QCSA team opened me up to a new field and taught me how important it is to understand what you're designing for! Understanding the field helped me make design decisions that balanced technical accuracy with an experience that felt approachable for all.</p>
           </div>
         </div>
         <div class="cs-takeaway">
-          <span class="cs-takeaway-icon"></span>
+          <img class="cs2-takeaway-img" src="assets/qcsa-girl-holding-check.svg" alt="" aria-hidden="true" draggable="false">
           <div>
-            <h3>Cross Collaboration</h3>
-            <p>Collaboration with developers played an important role in the project. By staying aware of implementation needs and technical constraints, I was able to make design decisions that supported a smoother handoff.</p>
+            <h3>Designing Beyond Aesthetics</h3>
+            <p>A redesign needs to do more than look polished. Each decision connects back to QCSA's goals and creating a brand that can grow with the organization.</p>
           </div>
         </div>
       </div>

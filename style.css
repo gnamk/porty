@@ -209,7 +209,23 @@ html { overflow-x: clip; }
 .nav-links a:hover { opacity: 0.5; }
 
 /* ── HERO ── */
-.hero { overflow: visible; }
+.hero { overflow: visible; position: relative; }
+
+/* Tint drawn as a layer rather than a plain background so it can reach up
+   past the hero's box to cover the nav strip (the nav is a sibling above
+   .hero in the flow), while still stopping at the hero's bottom edge —
+   which is where the globe's horizon sits. */
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -200px;
+  bottom: 0;
+  background: linear-gradient(to bottom, #EBF7FF, #FFFFFF);
+  z-index: -1;
+  pointer-events: none;
+}
 
 .hero-inner { padding-top: 64px; position: relative; }
 
@@ -248,6 +264,10 @@ html { overflow-x: clip; }
 .hero-name-svg {
   display: block;
   width: min(600px, 74.07%);
+  /* The SVG scales its type with its box, so rendered size is 64px x
+     (width / 600). Flooring the width at 300px stops the name rendering
+     below 32px. */
+  min-width: 300px;
   height: auto;
   overflow: visible;
   transform: translateY(-400px) rotate(-25deg);
@@ -256,7 +276,10 @@ html { overflow-x: clip; }
 
 .hero-name-text {
   font-family: var(--script);
-  font-size: clamp(48px, 5vw, 64px);
+  /* Fixed in user units, like the tagline's 24px — the SVG box handles all
+     the scaling. The old vw clamp made the title resize continuously with
+     the window while the tagline held steady, so the two drifted apart. */
+  font-size: 64px;
   font-weight: 600;
   fill: var(--text);
 }
@@ -266,8 +289,14 @@ html { overflow-x: clip; }
   display: block;
   width: 810px;
   max-width: 100%;
+  /* Rendered type is 24px x (width / 808), so a 539px floor keeps the
+     tagline from ever rendering below 16px. */
+  min-width: 539px;
   height: auto;
-  margin-top: -15px;
+  /* Visual gap to the name = (name height 165px + this margin) + (tagline
+     translateY -500px - name translateY -400px) = 65px + margin. -17px puts
+     it at 48px. */
+  margin-top: -17px;
   overflow: visible;
   transform: translateY(-500px) rotate(-15deg);
   transform-origin: center center;
@@ -275,6 +304,12 @@ html { overflow-x: clip; }
 
 .hero-tagline-text {
   font-family: var(--font);
+  /* Scales on the same curve as .hero-name-text's clamp(48px, 5vw, 64px) —
+     same 12.8 px-per-vw ratio and the same 0.75 floor — so the two lines
+     shrink together. Without this the tagline only scaled with its SVG box
+     while the name also shrank its type, so the name pulled away. */
+  /* Fixed in user units — the 16px floor is enforced by the SVG's
+     min-width above, so the two don't fight each other. */
   font-size: 24px;
   font-weight: 400;
   fill: var(--text);
@@ -302,7 +337,19 @@ html { overflow-x: clip; }
      lockstep with the glow/globe (which are already %-of-width) at every
      viewport size, instead of drifting out of sync on tablet/phone. */
   --wrap-w: clamp(561.6px, 66.96vw, 820.8px);
-  --ring-r: calc(var(--wrap-w) * 0.513156); /* 20% larger than the original 325px-at-760px ring */
+  /* The globe image is 78% of the wrap width, so its radius is 39% of it.
+     --globe-r sizes/places the ring's box so it shares the globe's center;
+     --ring-r is how far out the flowers and NPCs stand from that center.
+     Setting them equal puts every item's base right on the surface; raising
+     --ring-r lifts them all off it evenly. */
+  --globe-r: calc(var(--wrap-w) * 0.39);
+  /* A touch wider than the globe so the flowers and characters hover just
+     clear of the surface at rest — raise the offset for more whitespace. */
+  --ring-r: calc(var(--globe-r) + 20px);
+  /* Must stay 0: any horizontal nudge moves the ring's center off the
+     globe's, so items would drift closer to / further from the surface as
+     they rotate around. */
+  --ring-x: 0px;
   width: var(--wrap-w);
   height: clamp(345.6px, 41.04vw, 496.8px);
   overflow: visible;
@@ -346,15 +393,38 @@ html { overflow-x: clip; }
 
 .hero-tulip-ring {
   position: absolute;
-  left: 50%;
-  /* Proportional offset (180px at full size) — see --globe-drop note. */
-  bottom: calc(-28% - var(--wrap-w) * 0.2193);
-  width: calc(var(--ring-r) * 2);
-  height: calc(var(--ring-r) * 2);
+  /* .hero-globe-wrap is flex-centered inside the full-width .hero-art, so
+     50% here is the middle of the page. --ring-x is a manual nudge if the
+     circle ever needs shifting off that center. */
+  left: calc(50% + var(--ring-x, 0px));
+  /* Exactly the same box as .hero-globe (bottom:-30%, 78% of the wrap
+     width), so the two share a center. The box size doesn't affect where
+     items land — they're placed radially from this element's center using
+     --ring-r — it only fixes the origin they orbit. */
+  bottom: calc(-30% - var(--ring-y, 0px));
+  width: calc(var(--globe-r) * 2);
+  height: calc(var(--globe-r) * 2);
   transform: translateX(-50%);
   transform-origin: center center;
-  z-index: 4;
+  /* Above the globe (z-index 6) — otherwise the globe paints over the
+     flowers and NPCs standing on it. */
+  z-index: 7;
   pointer-events: none;
+}
+
+/* Inner layer that carries the slots and spins one position per scroll. Its
+   own transform keeps the ring's bounce animation free to run on the parent. */
+.hero-ring-spin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Pinned to the ring's exact center so the circle spins in place instead
+     of drifting sideways as it rotates. */
+  transform-origin: 50% 50%;
+  transform: rotate(0deg);
+  transition: transform 1.4s cubic-bezier(0.45, 0, 0.35, 1);
 }
 
 .hero-tulip-ring.is-bouncing {
@@ -363,7 +433,8 @@ html { overflow-x: clip; }
 
 @keyframes tulip-ring-bounce {
   0%   { transform: translateX(-50%) translateY(0); }
-  30%  { transform: translateX(-50%) translateY(-16px); }
+  30%  { transform: translateX(-50%) translateY(-20px); }
+  65%  { transform: translateX(-50%) translateY(4px); }
   100% { transform: translateX(-50%) translateY(0); }
 }
 
@@ -373,42 +444,170 @@ html { overflow-x: clip; }
   left: 50%;
   width: calc(var(--wrap-w) * 0.06737);
   height: auto;
-  /* Rotated by its own position angle (not counter-rotated) so each
-     flower stands upright relative to the circle, like spokes. */
-  transform: translate(-50%, -100%) rotate(var(--ang)) translateY(calc(var(--ring-r) * -1));
+  /* transform-origin must be the top-left corner: top/left:50% put that
+     corner exactly on the ring's center, so the rotation pivots on the
+     ring's center. With the default 50% 50% origin each item pivots around
+     its own middle instead, which offsets it by half its own size — bigger
+     items land further out and the whole set swings as the ring turns.
+     Order matters too: rotate to the slot angle, travel out along that
+     rotated axis, then shift by the item's own size so its bottom-center
+     lands on the circle. */
+  transform-origin: 0 0;
+  transform: rotate(var(--ang)) translateY(calc(var(--ring-r) * -1 - var(--lift, 0px))) translate(-50%, -100%);
 }
 
-.hero-cloud {
-  position: absolute;
-  width: clamp(145.8px, 17.28vw, 223.2px);
-  height: auto;
-  z-index: 4;
-  opacity: 0.5;
-  pointer-events: none;
+/* Every item hops straight up off the globe at the same moment, while the
+   ring itself turns one slot — so each one lands where its neighbour was.
+   --lift is a per-item nudge further out from the surface. */
+@keyframes ring-bob {
+  0%, 100% {
+    transform: rotate(var(--ang)) translateY(calc(var(--ring-r) * -1 - var(--lift, 0px))) translate(-50%, -100%);
+  }
+  45% {
+    transform: rotate(var(--ang)) translateY(calc(var(--ring-r) * -1 - var(--lift, 0px) - 18px)) translate(-50%, -100%);
+  }
 }
 
-/* NPC now lives inside .hero-tulip-ring, occupying the ring's top gap
-   slot. It orbits with the ring (translateY to the same radius) and, with
-   no counter-rotation applied, tilts along with the ring's spin just like
-   the tulip "spokes" do. */
+.hero-ring-spin.is-hopping .hero-tulip,
+.hero-ring-spin.is-hopping .hero-npc {
+  animation: ring-bob 1.4s ease-in-out;
+}
+
+
+/* NPCs live inside .hero-tulip-ring, occupying every other ring slot (the
+   cat takes the top slot at 0deg). Each is placed by its own --ang like the
+   tulip "spokes", so it stands upright relative to the circle and tilts
+   along with the ring's spin. */
 .hero-npc {
   position: absolute;
   top: 50%;
   left: 50%;
   width: clamp(19.98px, 2.385vw, 29.16px);
   height: auto;
-  transform: translate(-50%, -100%) translateY(calc(var(--ring-r) * -1));
+  /* Same top-left origin as the tulips — see the note there. */
+  transform-origin: 0 0;
+  transform: rotate(var(--ang, 0deg)) translateY(calc(var(--ring-r) * -1 - var(--lift, 0px))) translate(-50%, -100%);
   z-index: 5;
-  opacity: 0;
 }
 
-.hero-npc--1  { opacity: 1; }
+/* The taller/wider characters need their own sizes so they read at the same
+   visual scale as the small ones. */
 .hero-npc--6  { width: clamp(24.84px, 2.988vw, 36.72px); }
-.hero-npc--10 { width: clamp(52.38px, 6.273vw, 76.68px); }
-.hero-npc--11 { width: clamp(52.38px, 6.273vw, 76.68px); }
+/* The cat and dog are wider than the other characters but sit at the same
+   radius as everything else, so the ring stays a true circle. */
+.hero-npc--10,
+.hero-npc--11 {
+  width: clamp(52.38px, 6.273vw, 76.68px);
+}
 
-.hero-cloud--left  { left: calc(-18% - 50px); top: calc(3% - 150px); animation: cloud-left-in 1.1s ease-out 0.05s both, cloud-float-left 30s ease-in-out 1.15s infinite; }
-.hero-cloud--right { right: calc(-20% - 20px); top: calc(28% - 70px); animation: cloud-right-in 1.1s ease-out 0.05s both, cloud-float-right 30s ease-in-out 1.15s infinite; }
+/* ── Hero flower vines (replaced the clouds) ──
+   Anchored to the top corners of the hero art, they drop in from above the
+   viewport and settle with a soft bounce, rotating the last few degrees into
+   place. */
+.hero-vine {
+  position: absolute;
+  /* The lift is a proportion of the art's width rather than a fixed 345px,
+     so it shrinks along with everything else — on narrow screens the fixed
+     value held the vines too high and cropped them off the top. 0.42 x the
+     desktop --wrap-w (820.8px) is the same 345px there. */
+  top: calc(-14% - var(--wrap-w) * 0.504);
+  width: clamp(240px, 32vw, 470px);
+  z-index: 4;
+  pointer-events: none;
+  transform-origin: top center;
+}
+
+.hero-vine-stem {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The bloom sits at the stem's tip and spins on its own, continuously. */
+.hero-vine-bloom {
+  position: absolute;
+  height: auto;
+  animation: bloom-spin 18s linear infinite;
+}
+
+@keyframes bloom-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Purely percentage-based so each bloom stays welded to its stem tip at any
+   viewport size. Mixing in px offsets (as this used to) meant the stem
+   scaled down on smaller screens while the flower didn't follow, so they
+   drifted apart. */
+.hero-vine-bloom--left {
+  width: 27%;
+  left: 44%;
+  top: 32%;
+}
+
+.hero-vine-bloom--right {
+  width: 51%;
+  left: -28%;
+  top: 38.5%;
+}
+
+/* Held off-screen until <body> gets .is-loaded (set when the "Blooming"
+   loading screen starts to lift), so the drop isn't wasted behind it. */
+/* The two stems have very different proportions (the left is near-square,
+   the right is tall and narrow), so they're sized separately. Both are
+   pushed further out toward the screen edges. */
+/* Anchored to the viewport edges, not to the centered globe wrap: `50% -
+   50vw` resolves to the screen's edge from inside this centered box, so the
+   vines track the window as it resizes instead of staying put and drifting
+   out of frame. The trailing px keeps the desktop composition identical. */
+.hero-vine--left  { left: calc(50% - 50vw - 132px); width: clamp(312px, 41.6vw, 611px); opacity: 0; }
+.hero-vine--right { right: calc(50% - 50vw + 75px); width: clamp(169px, 22.1vw, 325px); opacity: 0; }
+
+/* Tablet and below: halve the right vine's inset from the screen edge — the
+   desktop 75px reads as too much room once everything else scales down. */
+@media (max-width: 1164px) {
+  .hero-vine--right { right: calc(50% - 50vw + 37.5px); }
+}
+
+/* Slow drop, then the sway picks up exactly where it lands. */
+body.is-loaded .hero-vine--left {
+  animation: vine-drop-left 3.6s cubic-bezier(0.34, 1.4, 0.5, 1) 0.07s both,
+             vine-sway-left 11s ease-in-out 3.67s infinite;
+}
+
+body.is-loaded .hero-vine--right {
+  animation: vine-drop-right 3.6s cubic-bezier(0.34, 1.4, 0.5, 1) 0.154s both,
+             vine-sway-right 12s ease-in-out 3.75s infinite;
+}
+
+/* Swings in on a wide arc rather than dropping straight down: it enters
+   sharply tilted, overshoots past level, and settles back to 0deg. */
+@keyframes vine-drop-left {
+  0%   { opacity: 0; transform: translateY(-80%) rotate(-38deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes vine-drop-right {
+  0%   { opacity: 0; transform: translateY(-80%) rotate(38deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+/* Idle sway once they've landed, hinging from the top like a vine. Starts
+   and ends at 0deg — the same angle the drop finishes on — so the handoff
+   between the two animations is seamless instead of snapping. */
+@keyframes vine-sway-left {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-3.5deg); }
+  75%      { transform: rotate(3.5deg); }
+}
+
+@keyframes vine-sway-right {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(3.5deg); }
+  75%      { transform: rotate(-3.5deg); }
+}
 
 @keyframes globe-rise-in {
   /* 1.45 × drop → 290px at the desktop 200px drop, same as before. */
@@ -729,6 +928,31 @@ html { overflow-x: clip; }
 
 .custom-cursor-inner.is-card {
   opacity: 0;
+}
+
+/* Over a playground ring photo the cursor grows and pulses to signal that
+   the image is clickable (the photo itself stays put). */
+.custom-cursor-outer.is-ring {
+  width: 64px;
+  height: 64px;
+  border-width: 2px;
+  animation: cursor-pulse 1.2s ease-in-out infinite;
+}
+
+.custom-cursor-inner.is-ring {
+  width: 12px;
+  height: 12px;
+  animation: cursor-pulse-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes cursor-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50%      { transform: translate(-50%, -50%) scale(1.25); opacity: 0.55; }
+}
+
+@keyframes cursor-pulse-dot {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.4); }
 }
 
 
@@ -1285,6 +1509,21 @@ html { overflow-x: clip; }
   background: #fff;
 }
 
+/* QCSA events flow: bigger boxes with a bolder outline in the same light
+   blue as the caption block beside it. */
+.qcsa-flow { gap: 28px; }
+.qcsa-flow .cs-flow-box {
+  border: 2px solid #E3EAFF;
+  border-radius: 8px;
+  padding: 13px 22px;
+  font-size: 15px;
+  min-width: 165px;
+}
+.qcsa-flow .cs-flow-arrow {
+  font-size: 18px;
+  color: #000;
+}
+
 .cs-flow-arrow {
   font-size: 14px;
   color: var(--muted);
@@ -1325,6 +1564,312 @@ html { overflow-x: clip; }
   /* Icons vertically centered against the text block, 16px from the text. */
   align-items: center;
   gap: 16px;
+}
+
+/* QCSA takeaways use the page's light blue instead of Satori's light orange. */
+.cs2-content.cs-qcsa .cs-takeaway {
+  background: #E3EAFF;
+}
+
+/* ── QCSA user research quote cards: profile icon on top, speaker and quote
+   stacked beneath it. ── */
+.qcsa-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.qcsa-quote-pfp {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: block;
+}
+
+/* Real headshot variant: cropped to a circle, with the person's name sitting
+   to its right instead of below. */
+.qcsa-quote-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qcsa-quote-pfp--photo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+.qcsa-quote-name {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+  font-family: var(--body-font);
+  color: #000;
+}
+/* Names link out to LinkedIn — underline only appears on hover. */
+.qcsa-quote-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.qcsa-quote-name a:hover {
+  color: #A855F7;
+  text-decoration: underline;
+}
+
+/* ── QCSA research slideshow: click left/right halves of the image to move
+   between slides; each slide pairs a placeholder image with one caption. ── */
+.qcsa-slideshow { margin-top: 18px; }
+.qcsa-slide-frame { position: relative; overflow: hidden; }
+.qcsa-slide { display: none; }
+.qcsa-slide.active { display: block; }
+
+/* Slide/caption transitions: incoming slides in from the side matching the
+   arrow clicked; outgoing slides out the opposite side. The outgoing element
+   is kept visible ("leaving") and absolutely positioned on top of the flow
+   while its exit animation runs, then unmounted on animationend. */
+/* Captions share the image's 64px side insets so they stop where it does. */
+.qcsa-captions { position: relative; overflow: hidden; margin: 0 64px; }
+.qcsa-slide.leaving,
+.qcsa-slide-caption.leaving {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+/* Slides cross-fade as they travel so the swap reads as one smooth motion
+   rather than a hard cut at the frame edge. */
+@keyframes qcsa-enter-right { from { transform: translateX(100%);  opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes qcsa-enter-left  { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes qcsa-exit-left   { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+@keyframes qcsa-exit-right  { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%);  opacity: 0; } }
+
+/* Slower, symmetrical ease-in-out so each transition accelerates out of and
+   settles back into place. */
+.qcsa-slide.enter-right, .qcsa-slide-caption.enter-right,
+.qcsa-slide.enter-left,  .qcsa-slide-caption.enter-left,
+.qcsa-slide.exit-left,   .qcsa-slide-caption.exit-left,
+.qcsa-slide.exit-right,  .qcsa-slide-caption.exit-right {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+/* The caption block (heading, body text, and its filled rectangle) is one
+   element, so it travels on the same curve as the slide image above it. */
+.qcsa-slide-caption { backface-visibility: hidden; }
+.qcsa-slide.enter-right, .qcsa-slide-caption.enter-right { animation-name: qcsa-enter-right; }
+.qcsa-slide.enter-left,  .qcsa-slide-caption.enter-left  { animation-name: qcsa-enter-left; }
+.qcsa-slide.exit-left,   .qcsa-slide-caption.exit-left   { animation-name: qcsa-exit-left; }
+.qcsa-slide.exit-right,  .qcsa-slide-caption.exit-right  { animation-name: qcsa-exit-right; }
+/* Inset the image from both edges so it stops where the arrows begin. */
+.qcsa-slide .cs-visual { margin: 0 64px; min-height: 320px; }
+/* The four SWOT boards have very different aspect ratios. Every slide is
+   locked to the strengths board's ratio (1028x541) and contained inside it,
+   so all four read at the same height and the carousel doesn't jump. */
+.qcsa-slide img {
+  display: block;
+  width: calc(100% - 128px);
+  aspect-ratio: 1028 / 541;
+  object-fit: contain;
+  margin: 0 64px;
+}
+.qcsa-slide-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.qcsa-slide-zone.prev { left: 0; justify-content: flex-start; }
+.qcsa-slide-zone.next { right: 0; justify-content: flex-end; }
+.qcsa-slide-zone::after {
+  font-size: 32px;
+  color: #A855F7;
+  padding: 0 16px;
+  opacity: 0.9;
+}
+.qcsa-slide-zone.prev::after { content: "\2190"; }
+.qcsa-slide-zone.next::after { content: "\2192"; }
+.qcsa-slide-zone:hover::after { opacity: 1; }
+
+/* Dot indicator pill overlaid at the bottom-center of the slideshow image.
+   Solid pale-purple pill (a whitened version of the arrows' #A855F7), white
+   dots — dimmed except the active slide's dot. */
+.qcsa-slide-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  background: #E6D0FB; /* the arrows' purple (#A855F7) lightened toward white */
+  border-radius: 999px;
+  padding: 7px 10px;
+  z-index: 3;
+  pointer-events: none;
+}
+.qcsa-slide-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.55;
+}
+.qcsa-slide-dots span.active { opacity: 1; }
+
+/* ── QCSA sitemap (User Flow section) ──
+   Rebuilt in HTML from the Figma sitemap: five page columns, each a stack
+   of section boxes (bold title + short grey description). */
+.qcsa-sitemap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 20px 0 32px;
+  /* Child-page columns are top-aligned with each other and pushed down as a
+     group (via script-set margin) so they sit centered against the taller
+     Home column, sitemap-style. */
+  align-items: start;
+  position: relative;
+}
+/* Connector lines: drawn by script into this overlay — a line leaves the
+   right side of the Home column's outline and branches down to the top of
+   each child column. */
+.qcsa-sitemap-lines {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.qcsa-sitemap-lines path {
+  fill: none;
+  stroke: #C9D4F2;
+  stroke-width: 1.5;
+}
+.qcsa-sitemap-col {
+  border: 1px solid #C9D4F2;
+  padding: 14px;
+}
+.qcsa-sitemap-col > h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.qcsa-sitemap-box {
+  background: #E3EAFF;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.qcsa-sitemap-box strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.qcsa-sitemap-box span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #444;
+  font-family: var(--body-font);
+}
+/* On narrow screens the sitemap keeps its 4-column shape and is scaled down
+   as a whole (by script) so the connector lines still read, instead of
+   reflowing into a 2x2 block that breaks the hierarchy. */
+/* No clipping and no scrollbars — the diagram is scaled by script to fit the
+   available width, so the whole thing is always visible. */
+.qcsa-sitemap-fit {
+  overflow: visible;
+}
+.qcsa-sitemap-fit.is-scaled .qcsa-sitemap {
+  transform-origin: top left;
+  margin-bottom: 0;
+}
+.qcsa-slide-caption {
+  display: none;
+  margin-top: 12px;
+  text-align: center;
+  background: #E3EAFF;
+  padding: 16px 20px;
+}
+.qcsa-slide-caption.active { display: block; }
+.qcsa-slide-caption h3 { font-size: 20px; margin-bottom: 4px; }
+.qcsa-slide-caption p {
+  margin: 0;
+  font-size: 16px;
+  font-family: var(--body-font);
+  color: #000;
+}
+
+/* ── QCSA design section: connector from the mockup image to each feature
+   rectangle — white circle (purple outline) at the image end, 3px purple
+   line running right into the rectangle. Circle layered above the line. ── */
+.qcsa-connect-row { display: flex; align-items: center; }
+.qcsa-connector {
+  position: relative;
+  width: 40px;
+  height: 14px;
+  flex-shrink: 0;
+  /* 16px of clear space between the image and the dot. */
+  margin-left: 16px;
+}
+.qcsa-connector::before { /* line */
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: #E3EAFF;
+  z-index: 1;
+}
+.qcsa-connector::after { /* circle, above the line */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #E3EAFF;
+  z-index: 2;
+}
+
+/* Vertical variant: the dot sits at the top and the line drops from it into
+   the caption block below, for annotations stacked under their image. */
+.qcsa-connect-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.qcsa-connector--vertical {
+  width: 14px;
+  height: 40px;
+  align-self: center; /* centered above the caption block */
+  /* Same 16px clearance, measured from the image above instead of beside. */
+  margin-left: 0;
+  margin-top: 16px;
+}
+.qcsa-connector--vertical::before { /* line */
+  left: 50%;
+  right: auto;
+  top: 6px;
+  bottom: 0;
+  height: auto;
+  width: 3px;
+  transform: translateX(-50%);
+}
+.qcsa-connector--vertical::after { /* circle, at the top */
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
 }
 
 /* Takeaway titles at the same size as the page's subheaders. */
@@ -1403,8 +1948,10 @@ html { overflow-x: clip; }
   align-items: center;
   gap: 32px;
   /* Right padding reserves space for the fixed ToC (150px) + its gap (48px)
-     + its own 64px edge offset, so cs2-visual never grows under it. */
-  padding: 56px 262px 0 64px;
+     + its own 64px edge offset, so cs2-visual never grows under it. Fluid
+     below the 1440px design width so the side margins hold the same ratio
+     (262/1440 = 18.2vw, 64/1440 = 4.4vw). */
+  padding: 56px clamp(24px, 18.2vw, 262px) 0 clamp(24px, 4.4vw, 64px);
 }
 
 .cs2-info {
@@ -1514,11 +2061,16 @@ html { overflow-x: clip; }
   z-index: 2;
 }
 
+/* Width hugs the longest entry rather than sitting at a fixed 150px — the
+   flower indicator is positioned off the list's right edge, so a fixed width
+   left a growing gap between the text and the flower as the type scaled down
+   on narrower windows. */
 .cs2-toc {
   position: fixed;
   top: 140px;
   right: 64px;
-  width: 150px;
+  width: max-content;
+  max-width: 150px;
   z-index: 10;
 }
 
@@ -1593,9 +2145,17 @@ html { overflow-x: clip; }
   margin-bottom: 8px;
 }
 
+/* "Check out another project!" heading: black, not the orange/purple
+   section-h2 accent. Specificity matches the qcsa purple rule and this
+   comes later, so black wins on every case study. */
+.cs2-content .cs-section.cs2-next-project > h2 {
+  color: var(--text);
+}
+
 /* "Check out another project!" card: the card's own title must not pick up
-   the orange section-h2 styling above. Restore the homepage card look. */
-.cs2-next-project .card h2 {
+   the orange/purple section-h2 styling above (incl. the higher-specificity
+   qcsa rule). Restore the homepage card look. */
+.cs2-content .cs2-next-project .card h2 {
   color: var(--text);
   font-size: 24px;
   font-weight: 400;
@@ -1604,7 +2164,10 @@ html { overflow-x: clip; }
 
 /* Centered divider line shown before each green section title. */
 .cs2-title-rule {
-  width: 500px;
+  /* Capped at 500px, but never wider than the content column — at tablet
+     widths the fixed 500px overflowed the right padding and ran under the
+     table of contents. */
+  width: min(500px, 100%);
   height: 0;
   margin: 16px auto;
   border: none;
@@ -1641,9 +2204,12 @@ html { overflow-x: clip; }
 /* Reserve space on the right so text/images stop 32px short of the fixed
    ToC (right:64px + width:150px = 214px from the edge, +32px gap = 246px). */
 .cs-content.cs2-content {
-  /* +40px each side over the original to squeeze the text column */
-  padding-left: 168px;
-  padding-right: 382px;
+  /* +40px each side over the original to squeeze the text column. Fluid so
+     the side margins keep the same proportion of the viewport at tablet
+     widths as they do at the 1440px design width (168/1440 = 11.7vw,
+     382/1440 = 26.5vw), instead of eating the text column. */
+  padding-left: clamp(24px, 11.7vw, 168px);
+  padding-right: clamp(24px, 26.5vw, 382px);
 }
 
 /* .cs-body's 12px reads noticeably smaller in Inria Serif (small x-height) —
@@ -1938,6 +2504,24 @@ html { overflow-x: clip; }
   margin: 0;
 }
 
+/* The three redesign goals are set like the Problem section's prompt quote:
+   same size, weight, and line-height, just left-aligned as a numbered list. */
+.cs2-content .qcsa-goals li {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.cs2-content .qcsa-goals li:last-child { margin-bottom: 0; }
+
+/* Goals sit in a prompt-style row with the rocket icon on the right, but the
+   list itself stays left-aligned and takes the leftover width. */
+.qcsa-goals-row .qcsa-goals {
+  flex: 1;
+  margin: 0;
+}
+
 /* Between 901–1164px, .cs2-hero is still wide enough to reserve the ToC's
    space but not wide enough to fit .cs2-info at its 420px basis next to
    .cs2-visual at its 188px-per-phone floor (420+32+386+326 padding = 1164)
@@ -1971,6 +2555,11 @@ html { overflow-x: clip; }
     font-size: 16px;
   }
   .cs2-toc a { font-size: 12px; }
+  /* Type is smaller here, so pull the flower in proportionally instead of
+     leaving the desktop 44px/40px gap. */
+  .cs2-toc-indicator { right: -32px; width: 26px; height: 26px; top: -7px; }
+  .cs2-toc-indicator.flower-blue,
+  .cs2-toc-indicator.flower-purple { right: -29px; width: 21px; height: 21px; top: -5px; }
   .cs2-content .cs-bullets li { font-size: 16px; }
   .cs2-content .cs-subhead { font-size: 24px; }
   .cs2-content .cs-takeaway h3 { font-size: 24px; }
@@ -2054,6 +2643,20 @@ html { overflow-x: clip; }
 }
 
 .cs-proto-link:hover { opacity: 0.6; }
+
+/* Prototype/site links pick up their case study's accent on hover — the
+   bright purple on QCSA, the orange on Satori. */
+.cs-qcsa .cs-proto-link:hover,
+.cs2-content.cs-qcsa .cs-proto-link:hover {
+  color: #A855F7;
+  opacity: 1;
+}
+.cs2-content .cs-proto-link:hover {
+  color: #FF804A;
+  opacity: 1;
+}
+/* QCSA's purple has to win over the generic .cs2-content orange above. */
+.cs2-content.cs-qcsa .cs-proto-link:hover { color: #A855F7; }
 
 /* ── About page ── */
 .about-hero {
@@ -2245,6 +2848,145 @@ html { overflow-x: clip; }
   transform: translateY(0);
 }
 
+/* ── Playground circular gallery ──
+   Same idea as the About page's looping carousel, bent into a ring: the
+   track rotates forever, each photo counter-rotates to stay upright, and
+   hovering any photo pauses everything and pops that one forward. */
+/* The ring is bigger than the viewport and its center sits past the right
+   edge, so only the left half of the circle is on screen — the photos sweep
+   through in a tall arc. */
+.pg-ring-stage {
+  --ring-size: min(1430px, 195vw);
+  position: relative;
+  /* Only the right side needs trimming (the ring's far half hangs off the
+     page); the stage is as tall as the ring plus hover headroom so nothing
+     is clipped at the top or bottom. */
+  overflow: hidden;
+  height: calc(var(--ring-size) + 120px);
+  margin: -96px 0 96px;
+}
+
+.pg-ring {
+  --ring-radius: calc(var(--ring-size) * 0.42);
+  --ring-step: calc(360deg / var(--n));
+  --ring-speed: 60s;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.pg-ring-track {
+  position: absolute;
+  inset: 0;
+  animation: pg-ring-spin var(--ring-speed) linear infinite;
+}
+
+.pg-ring-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--ring-size) * 0.15);
+  transform:
+    translate(-50%, -50%)
+    rotate(calc(var(--i) * var(--ring-step)))
+    translateY(calc(var(--ring-radius) * -1));
+}
+
+/* Undoes the item's own placement angle so the photo sits level. */
+.pg-ring-fix {
+  transform: rotate(calc(-1 * var(--i) * var(--ring-step)));
+  transition: transform 0.3s ease;
+}
+
+/* Undoes the track's continuous spin, in lockstep with it. */
+.pg-ring-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #e4e4e4;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  animation: pg-ring-counter var(--ring-speed) linear infinite;
+}
+
+@keyframes pg-ring-spin    { from { transform: rotate(0deg); }  to { transform: rotate(360deg); } }
+@keyframes pg-ring-counter { from { transform: rotate(0deg); }  to { transform: rotate(-360deg); } }
+
+/* Hovering one photo freezes the ring and every counter-rotation at once, so
+   nothing drifts out of alignment while paused. */
+.pg-ring.is-paused .pg-ring-track,
+.pg-ring.is-paused .pg-ring-photo {
+  animation-play-state: paused;
+}
+
+/* Hovering a photo pauses the ring but leaves the photo itself at rest —
+   the cursor does the signalling instead (see .custom-cursor-*.is-ring). */
+.pg-ring-item:hover { z-index: 3; }
+
+.pg-ring-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.pg-ring-item:hover .pg-ring-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Clicking a ring photo flips a copy of it into the middle of the screen;
+   clicking anywhere else flips it back into its slot. */
+.pg-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(255, 255, 255, 0.86);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  perspective: 1400px;
+}
+.pg-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pg-lightbox-card {
+  position: fixed;
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #e4e4e4;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  /* No animation on the clone — it must not inherit the ring's counter-spin. */
+  animation: none !important;
+  transition: transform 0.75s cubic-bezier(0.45, 0, 0.2, 1);
+  will-change: transform;
+}
+.pg-lightbox-card .pg-ring-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The photo left behind in the ring stays invisible until the card returns. */
+.pg-ring-photo.is-lifted { visibility: hidden; }
+
+@media (max-width: 720px) {
+  .pg-ring-stage { --ring-size: 247vw; margin-bottom: 64px; }
+  .pg-ring-item { width: calc(var(--ring-size) * 0.17); }
+}
+
 /* ── Responsive ── */
 /* Tablet/phone: tighter 32px gaps between case study cards (64px on desktop),
    and the scroll hint inches down toward the shrinking globe. */
@@ -2288,14 +3030,19 @@ html { overflow-x: clip; }
 
 /* Phone: hero ends 32px above the first case study card, hint a touch lower,
    and the footer stacks vertically so nothing overlaps. */
-@media (max-width: 600px) {
+/* Phone only: restores the arc drop and vine lift the tablet band overrides,
+   keeping the mobile composition exactly as it was. */
+/* Matches the hero breakpoint above so the globe/ring offsets change in
+   step with the layout switch. */
+@media (max-width: 900px) {
   .work {
     margin-top: 56px; /* 64px between the dome edge and the first card */
   }
 
-  /* Tulip ring + npcs and the white glow sit 20px lower on phones. */
+  /* Tulip ring + npcs and the white glow sit 20px lower on phones. Stays
+     tied to the globe's own box so the two circles remain concentric. */
   .hero-tulip-ring {
-    bottom: calc(-28% - var(--wrap-w) * 0.2193 - 20px);
+    bottom: calc(-30% - 20px);
   }
 
   .hero-glow {
@@ -2385,7 +3132,10 @@ html { overflow-x: clip; }
    but those offsets didn't, so the ring/NPC drifted into the headline and
    the globe sank away. Everything below re-derives those offsets from the
    viewport width so the whole composition scales as one unit. */
-@media (max-width: 600px) {
+/* Raised from 600px: between ~600–900px the desktop hero geometry broke down
+   — the name and tagline arcs collided — so the phone treatment now takes
+   over across small tablets too. */
+@media (max-width: 900px) {
   .hero-globe-wrap {
     --wrap-w: 100vw;
     height: calc(var(--wrap-w) * 0.6053); /* keeps desktop 820.8:496.8 ratio */
@@ -2412,8 +3162,26 @@ html { overflow-x: clip; }
      relationship (name 400·w/600 vs tagline 450·w/808) and makes the two
      curves cross. Rendering the name at 66vw restores the desktop ratio
      (tagline arc ~13% larger) so the curves nest instead of colliding. */
-  .hero-name-svg    { width: 66vw; transform: translate(-30px, calc(-96px - 39.33vw)) rotate(-21deg); }
-  .hero-tagline-svg { transform: translate(-20px, calc(44px - 71.32vw)) rotate(-10deg); }
+  /* Phones are narrower than the desktop floors, so clear them here.
+     The tagline's Y is derived from the name's (-96px - 39.33vw) minus the
+     name's own height (0.275 x 66vw = 18.15vw) plus the 24px gap, so the two
+     stay 24px apart at every phone width. The old independent vw formula let
+     the gap swing by ~110px across that range. */
+  /* Both Y offsets are eased by 45px here so the pair sits lower — at these
+     widths the vw-driven lift pulled them up under the nav. Applied
+     equally. Phones get a bigger 90px drop in the ≤600px block below. */
+  .hero-name-svg    { width: 66vw; min-width: 0; transform: translate(-30px, calc(-131px - 39.33vw)) rotate(-21deg); }
+  .hero-tagline-svg {
+    min-width: 0;
+    margin-top: 0;
+    /* taglineY = nameY - name height (18.15vw) + gap. The 48px gap matches
+       full width; both offsets move together so it stays constant. */
+    transform: translate(-20px, calc(-83px - 57.48vw)) rotate(-10deg);
+  }
+
+  /* --wrap-w becomes 100vw here, so the multiplier has to be retuned or the
+     vines drift out of frame. */
+  .hero-vine { top: calc(-14% - var(--wrap-w) * 0.42); }
 
   /* Globe re-centered (the ≤720px flex-start/negative-margin hack existed
      for the oversized fixed-width globe, which no longer applies) and
@@ -2421,8 +3189,23 @@ html { overflow-x: clip; }
   .hero-art {
     justify-content: center;
     margin-left: 0;
-    /* +20px: the globe/tulips/npc offset on phones (text stays put).
-       -84.9vw = -(0.6053 + 0.2437) × the 100vw art width. */
+    /* Baseline, no drop. -84.9vw = -(0.6053 + 0.2437) × the 100vw art
+       width; the +20px is the original globe/tulip/npc nudge. The phone
+       block below adds its own drop on top of this — tablet keeps none. */
     margin-top: calc(20px - 84.9vw);
   }
+}
+
+/* ── Phone only ──
+   Must come after the ≤900px block: both queries match at these widths and
+   the selectors have equal specificity, so whichever is written last wins.
+   Sitting earlier in the file is why these were being ignored. */
+@media (max-width: 600px) {
+  .hero-name-svg    { transform: translate(-30px, calc(-6px - 39.33vw)) rotate(-21deg); }
+  .hero-tagline-svg { transform: translate(-20px, calc(18px - 57.48vw)) rotate(-10deg); }
+  .hero-vine        { top: calc(-14% - var(--wrap-w) * 0.8); }
+
+  /* Taller hero: the globe, its ring, and the scroll hint (all children of
+     the art block) shift down together by 100px. */
+  .hero-art { margin-top: calc(120px - 84.9vw); }
 }

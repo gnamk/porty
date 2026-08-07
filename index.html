@@ -61,32 +61,44 @@
             <img src="assets/glow.png"   class="hero-glow"   alt="" aria-hidden="true" draggable="false">
             <img src="assets/globe.png"  class="hero-globe"  alt="" aria-hidden="true" draggable="false">
             <div class="hero-tulip-ring">
-              <!-- 15 even slots (24deg apart); slot at 0deg (top) is left empty
-                   as a gap the width of one tulip -->
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 24deg"  alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 48deg"  alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 72deg"  alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 96deg"  alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 120deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 144deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 168deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 192deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 216deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 240deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 264deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 288deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 312deg" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/tulip.png" class="hero-tulip" style="--ang: 336deg" alt="" aria-hidden="true" draggable="false">
-              <!-- NPCs orbit inside the ring too, sharing its top gap slot -->
-              <img src="assets/npc1.png"   class="hero-npc hero-npc--1"  alt="" aria-hidden="true" draggable="false">
-              <img src="assets/npc2.png"   class="hero-npc hero-npc--2"  alt="" aria-hidden="true" draggable="false">
-              <img src="assets/npc10.png"  class="hero-npc hero-npc--10" alt="" aria-hidden="true" draggable="false">
-              <img src="assets/npc11.png"  class="hero-npc hero-npc--11" alt="" aria-hidden="true" draggable="false">
+              <!-- .hero-ring-spin holds every slot and rotates one step
+                   (24deg) per scroll. 15 even slots: the cat sits at 0deg
+                   (top) with a tulip on either side, and NPCs alternate with
+                   tulips around the rest. --k is the slot index, which staggers
+                   each item's bob by 0.2s so the hop travels around the ring. -->
+              <div class="hero-ring-spin">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 24deg"  alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 72deg"  alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 120deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 144deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 192deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 240deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 288deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/tulip.png" class="hero-tulip" style="--ang: 336deg" alt="" aria-hidden="true" draggable="false">
+                <!-- NPCs orbit inside the ring too. npc1 holds the top slot,
+                     with the cat and the dog flanking it one flower out on
+                     either side. -->
+                <img src="assets/npc1.png"   class="hero-npc hero-npc--1"  style="--ang: 0deg"   alt="" aria-hidden="true" draggable="false">
+                <img src="assets/npc10.png"  class="hero-npc hero-npc--10" style="--ang: 48deg"  alt="" aria-hidden="true" draggable="false">
+                <img src="assets/npc11.png"  class="hero-npc hero-npc--11" style="--ang: 312deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/npc3.png"   class="hero-npc hero-npc--3"  style="--ang: 96deg"  alt="" aria-hidden="true" draggable="false">
+                <img src="assets/npc4.png"   class="hero-npc hero-npc--4"  style="--ang: 168deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/npc2.png"   class="hero-npc hero-npc--2"  style="--ang: 216deg" alt="" aria-hidden="true" draggable="false">
+                <img src="assets/npc5.png"   class="hero-npc hero-npc--5"  style="--ang: 264deg" alt="" aria-hidden="true" draggable="false">
+              </div>
             </div>
           </div>
           <p class="hero-scroll-hint">Scroll to see recently potted work ↓</p>
-          <img src="assets/cloud.png" class="hero-cloud hero-cloud--left"  alt="" aria-hidden="true" draggable="false">
-          <img src="assets/cloud.png" class="hero-cloud hero-cloud--right" alt="" aria-hidden="true" draggable="false">
+          <!-- Vine stem + its bloom are separate layers so the flower can
+               spin on its own while the stem only sways. -->
+          <div class="hero-vine hero-vine--left">
+            <img src="assets/home-vineleft.png" class="hero-vine-stem" alt="" aria-hidden="true" draggable="false">
+            <img src="assets/home-bushypinkflower.png" class="hero-vine-bloom hero-vine-bloom--left" alt="" aria-hidden="true" draggable="false">
+          </div>
+          <div class="hero-vine hero-vine--right">
+            <img src="assets/home-vineright.png" class="hero-vine-stem" alt="" aria-hidden="true" draggable="false">
+            <img src="assets/home-yellowflower.png" class="hero-vine-bloom hero-vine-bloom--right" alt="" aria-hidden="true" draggable="false">
+          </div>
         </div>
       </div>
     </div>
@@ -96,20 +108,20 @@
   <section class="work" id="work">
     <div class="work-grid">
 
-        <a class="card" href="satori.html" style="--card-bg: linear-gradient(to bottom, #FFD1D1, #F5FFE6);">
+        <a class="card" href="rose-garden.html" style="--card-bg: linear-gradient(to bottom, #FFF6D9, #E0EFFF);">
           <div class="card-media">
-            <img class="card-img" src="assets/Satori%201.svg" alt="Satori app mockup 1">
-            <img class="card-img" src="assets/Satori2.svg" alt="Satori app mockup 2">
+            <img class="card-img" src="assets/RG%201.svg" alt="Rose Garden app mockup 1">
+            <img class="card-img" src="assets/RG%202.svg" alt="Rose Garden app mockup 2">
           </div>
           <div class="card-body">
             <div class="card-title-row">
-              <h2>Satori</h2>
+              <h2>Rose Garden</h2>
               <div class="tags">
-                <span>Winter 2026</span>
-                <span>Designathon</span>
+                <span>Spring 2025</span>
+                <span>0 → 1</span>
               </div>
             </div>
-            <p>Empowering users to better understand and improve habits through data-driven insights.</p>
+            <p>Journaling app centered on reflection and habit-building, inspired by rose-bud-thorn icebreaker.</p>
           </div>
         </a>
 
@@ -129,37 +141,36 @@
           </div>
         </a>
 
-        <a class="card" href="zenout.html" style="--card-bg: linear-gradient(to bottom, #ACC8E3, #FFDBDB);">
+        <a class="card" href="satori.html" style="--card-bg: linear-gradient(to bottom, #FFD1D1, #F5FFE6);">
           <div class="card-media">
-            <img class="card-img phone-zoom" src="assets/Zenout.svg" alt="ZenOut app mockup 1">
-            <img class="card-img phone-zoom" src="assets/Zenout%202.svg" alt="ZenOut app mockup 2">
+            <img class="card-img" src="assets/Satori%201.svg" alt="Satori app mockup 1">
+            <img class="card-img" src="assets/Satori2.svg" alt="Satori app mockup 2">
           </div>
           <div class="card-body">
             <div class="card-title-row">
-              <h2>ZenOut</h2>
+              <h2>Satori</h2>
               <div class="tags">
-                <span>Spring 2026</span>
-                <span>App Redesign</span>
+                <span>Winter 2026</span>
+                <span>Designathon</span>
               </div>
             </div>
-            <p>Improving meditation goal tracking and sharing to encourage consistency.</p>
+            <p>Empowering users to better understand and improve habits through data-driven insights.</p>
           </div>
         </a>
 
-        <a class="card" href="rose-garden.html" style="--card-bg: linear-gradient(to bottom, #FFF6D9, #E0EFFF);">
+        <a class="card" href="sips.html" style="--card-bg: linear-gradient(to bottom, #FFE3D6, #E7FFE6);">
           <div class="card-media">
-            <img class="card-img" src="assets/RG%201.svg" alt="Rose Garden app mockup 1">
-            <img class="card-img" src="assets/RG%202.svg" alt="Rose Garden app mockup 2">
+            <img class="card-img" src="assets/SIPS.svg" alt="SIPS mockup">
           </div>
           <div class="card-body">
             <div class="card-title-row">
-              <h2>Rose Garden</h2>
+              <h2>SIPS</h2>
               <div class="tags">
-                <span>Spring 2025</span>
-                <span>0 → 1</span>
+                <span>Fall 2026</span>
+                <span>Internship</span>
               </div>
             </div>
-            <p>Journaling app centered on reflection and habit-building, inspired by rose-bud-thorn icebreaker.</p>
+            <p>Redesigning map of sober-inclusive places.</p>
           </div>
         </a>
 
@@ -179,19 +190,20 @@
           </div>
         </a>
 
-        <a class="card" href="sips.html" style="--card-bg: linear-gradient(to bottom, #FFE3D6, #E7FFE6);">
+        <a class="card" href="zenout.html" style="--card-bg: linear-gradient(to bottom, #ACC8E3, #FFDBDB);">
           <div class="card-media">
-            <img class="card-img" src="assets/SIPS.svg" alt="SIPS mockup">
+            <img class="card-img phone-zoom" src="assets/Zenout.svg" alt="ZenOut app mockup 1">
+            <img class="card-img phone-zoom" src="assets/Zenout%202.svg" alt="ZenOut app mockup 2">
           </div>
           <div class="card-body">
             <div class="card-title-row">
-              <h2>SIPS</h2>
+              <h2>ZenOut</h2>
               <div class="tags">
-                <span>Fall 2026</span>
-                <span>Internship</span>
+                <span>Spring 2026</span>
+                <span>App Redesign</span>
               </div>
             </div>
-            <p>Redesigning map of sober-inclusive places.</p>
+            <p>Improving meditation goal tracking and sharing to encourage consistency.</p>
           </div>
         </a>
 
@@ -323,67 +335,62 @@
       requestAnimationFrame(() => smoothScrollTo(workSection));
     }
 
-    const npcScenes = [
-      ['hero-npc--1'],
-      ['hero-npc--2'],
-      ['hero-npc--10'],
-      ['hero-npc--11'],
-    ];
-    let currentScene = 0;
-    let npcAnimating = false;
-
-    function getEls(idx) {
-      return npcScenes[idx].map(c => document.querySelector('.' + c));
-    }
-
-    function swapNpc(nextIdx, dir) {
-      if (npcAnimating) return;
-      npcAnimating = true;
-
-      const fromEls = getEls(currentScene);
-      const toEls   = getEls(nextIdx);
-
-      // Ring stays stationary now — only the NPC crossfades between
-      // scenes on scroll, no more spin.
-      setTimeout(() => {
-        fromEls.forEach(el => { el.style.opacity = '0'; });
-        toEls.forEach(el => { el.style.opacity = '1'; });
-        currentScene = nextIdx;
-        setTimeout(() => { npcAnimating = false; }, 350);
-      }, 350);
-    }
-
     let globeRotation = 0;
+    /* One ring slot = 360/15 = 24deg. Each scroll gesture hops the whole
+       circle up and turns it one slot, so every flower/NPC lands where its
+       neighbour was standing. Scrolling faster can't skip ahead — the step
+       is locked until the hop finishes. */
+    const RING_STEP = 24;
+    const STEP_COOLDOWN = 1400; // matches the hop + rotation duration
+    let ringRotation = 0;
+    let stepping = false;
     const globeEl = document.querySelector('.hero-globe');
-    const tulipRingEl = document.querySelector('.hero-tulip-ring');
+    const ringSpinEl = document.querySelector('.hero-ring-spin');
+    const ringEl = document.querySelector('.hero-tulip-ring');
 
-    let scrollTimer  = null;
-    let pendingDir   = 0;
+    /* Pin the ring's center onto the globe's center by measuring both, rather
+       than trusting the CSS offsets to line up. Any mismatch would make items
+       sit closer to the surface on one side and further on the other as the
+       ring turns. Re-run on resize since both are viewport-scaled. */
+    function alignRingToGlobe() {
+      if (!ringEl || !globeEl) return;
+      ringEl.style.setProperty('--ring-x', '0px');
+      ringEl.style.setProperty('--ring-y', '0px');
+
+      const g = globeEl.getBoundingClientRect();
+      const r = ringEl.getBoundingClientRect();
+      const dx = (g.left + g.width / 2) - (r.left + r.width / 2);
+      const dy = (g.top + g.height / 2) - (r.top + r.height / 2);
+
+      ringEl.style.setProperty('--ring-x', dx.toFixed(2) + 'px');
+      ringEl.style.setProperty('--ring-y', dy.toFixed(2) + 'px');
+    }
+    window.addEventListener('resize', alignRingToGlobe);
+    window.addEventListener('load', alignRingToGlobe);
+    alignRingToGlobe();
 
     window.addEventListener('wheel', e => {
-      pendingDir = e.deltaY > 0 ? 1 : -1;
+      if (stepping) return;
+      stepping = true;
+      const dir = e.deltaY > 0 ? 1 : -1;
 
-      if (scrollTimer) return;
+      /* The globe turns on the same slow curve as the ring — just a plain
+         rotation, no hop. */
+      globeRotation += dir * RING_STEP;
+      globeEl.style.transition = 'transform 1.4s cubic-bezier(0.45, 0, 0.35, 1)';
+      globeEl.style.transform  = `translateX(-50%) rotate(${globeRotation}deg)`;
 
-      scrollTimer = setTimeout(() => {
-        scrollTimer = null;
-        if (npcAnimating) return;
+      if (ringSpinEl) {
+        ringSpinEl.classList.remove('is-hopping');
+        void ringSpinEl.offsetWidth; // restart the hop animation
+        ringSpinEl.classList.add('is-hopping');
 
-        const dir = pendingDir;
+        ringRotation += dir * RING_STEP;
+        ringSpinEl.style.transform = `rotate(${ringRotation}deg)`;
+      }
 
-        globeRotation += dir * 6;
-        globeEl.style.transition = 'transform 0.6s ease-out';
-        globeEl.style.transform  = `translateX(-50%) rotate(${globeRotation}deg)`;
-
-        // Small bounce on the ring (and the npc riding in it) each scroll step.
-        tulipRingEl.classList.remove('is-bouncing');
-        void tulipRingEl.offsetWidth;
-        tulipRingEl.classList.add('is-bouncing');
-
-        const next = (currentScene + dir + npcScenes.length) % npcScenes.length;
-        swapNpc(next, dir);
-      }, 80);
-    });
+      setTimeout(() => { stepping = false; }, STEP_COOLDOWN);
+    }, { passive: true });
 
     const playgroundBox = document.querySelector('.pg-box');
     const playgroundObserver = new IntersectionObserver(entries => {
