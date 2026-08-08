@@ -39,27 +39,23 @@
 
   <!-- ── HERO ── -->
   <section class="hero">
+    <!-- Vines hang from the top corners of the hero section itself, not from
+         the globe wrapper — nested in there they rode the globe's offset
+         chain and sat well below the top of the page. Stem and bloom are
+         separate layers so the flower can spin while the stem only sways. -->
+    <div class="hero-vine hero-vine--left">
+      <img src="assets/home-vineleft.png" class="hero-vine-stem" alt="" aria-hidden="true" draggable="false">
+      <img src="assets/home-bushypinkflower.png" class="hero-vine-bloom hero-vine-bloom--left" alt="" aria-hidden="true" draggable="false">
+    </div>
+    <div class="hero-vine hero-vine--right">
+      <img src="assets/home-vineright.png" class="hero-vine-stem" alt="" aria-hidden="true" draggable="false">
+      <img src="assets/home-yellowflower.png" class="hero-vine-bloom hero-vine-bloom--right" alt="" aria-hidden="true" draggable="false">
+    </div>
+
     <div class="wrap hero-inner">
       <div class="hero-text">
-        <svg class="hero-name-svg" viewBox="100 -60 600 165" aria-hidden="true" focusable="false">
-          <path id="heroNameArc" d="M0,400 A400,400 0 0 1 800,400" fill="none" stroke="none"/>
-          <text class="hero-name-text" text-anchor="middle">
-            <textPath href="#heroNameArc" startOffset="50%">Hello, I'm Gina!</textPath>
-          </text>
-        </svg>
-        <svg class="hero-tagline-svg" viewBox="46 -30 808 248" aria-hidden="true" focusable="false">
-          <path id="heroTaglineArc" d="M0,450 A450,450 0 0 1 900,450" fill="none" stroke="none"/>
-          <!-- Two versions: the short one takes over on phones, where the
-               full line has to shrink too far to stay readable. CSS swaps
-               which is visible. -->
-          <text class="hero-tagline-text hero-tagline-full" text-anchor="middle">
-            <textPath href="#heroTaglineArc" startOffset="50%">Product designer with a love for visual storytelling and thoughtful design.</textPath>
-          </text>
-          <text class="hero-tagline-text hero-tagline-short" text-anchor="middle">
-            <textPath href="#heroTaglineArc" startOffset="50%">Product designer with a love for visual storytelling.</textPath>
-          </text>
-        </svg>
-        <span class="sr-only">Hello, I'm Gina! Product designer with a love for visual storytelling and thoughtful design.</span>
+        <h1 class="hero-name">Hello, I'm Gina!</h1>
+        <p class="hero-tagline">Product designer with a love for visual storytelling and thoughtful design.</p>
       </div>
       <div class="hero-art">
         <div class="hero-globe-wrap">
@@ -95,16 +91,6 @@
             </div>
           </div>
           <p class="hero-scroll-hint">Scroll to see recently potted work ↓</p>
-          <!-- Vine stem + its bloom are separate layers so the flower can
-               spin on its own while the stem only sways. -->
-          <div class="hero-vine hero-vine--left">
-            <img src="assets/home-vineleft.png" class="hero-vine-stem" alt="" aria-hidden="true" draggable="false">
-            <img src="assets/home-bushypinkflower.png" class="hero-vine-bloom hero-vine-bloom--left" alt="" aria-hidden="true" draggable="false">
-          </div>
-          <div class="hero-vine hero-vine--right">
-            <img src="assets/home-vineright.png" class="hero-vine-stem" alt="" aria-hidden="true" draggable="false">
-            <img src="assets/home-yellowflower.png" class="hero-vine-bloom hero-vine-bloom--right" alt="" aria-hidden="true" draggable="false">
-          </div>
         </div>
       </div>
     </div>
@@ -342,31 +328,65 @@
     window.addEventListener('load', alignRingToGlobe);
     alignRingToGlobe();
 
-    /* Holds the gap between the curved text and the top of the globe steady
-       at every width. Desktop, tablet and phone each position these with
-       different formulas (fixed px vs vw), so the gap drifted between them.
-       Measuring both and correcting the art's offset keeps it constant.
-       GAP is the desktop spacing — change that one number to retune. */
-    const GAP = 14;
-    const heroArtEl    = document.querySelector('.hero-art');
-    const taglineEl    = document.querySelector('.hero-tagline-svg');
-    const heroGlobeEl  = document.querySelector('.hero-globe');
+    /* .hero-art is pulled up by a fixed negative margin, but the tagline
+       wraps to two or three lines depending on width — so at some sizes the
+       text ran into the flowers. This enforces a minimum gap between the
+       bottom of the tagline and the highest thing in the art (the flowers
+       overhang the art's box, so the box's own top isn't the real edge).
+       It only ever pushes the art down; where the CSS already leaves more
+       room than MIN_GAP, the tuned spacing is left alone. */
+    /* Clearance the guard keeps between the tagline and the topmost flower.
+       Negative by 32px on purpose: the measurement uses bounding boxes, and
+       a tilted tulip's box overstates its visual mass by roughly that much
+       (the corner of the box is empty). Letting the text sit 32px into that
+       empty corner recovers 32px of height for the globe without the two
+       actually touching. Raise this if they ever do. */
+    const MIN_GAP = -40;
+    const taglineEl = document.querySelector('.hero-tagline');
+    const heroArtEl = document.querySelector('.hero-art');
 
-    function alignHeroText() {
-      if (!heroArtEl || !taglineEl || !heroGlobeEl) return;
-      heroArtEl.style.marginTop = '';               // back to the CSS value
+    function preventOverlap() {
+      if (!taglineEl || !heroArtEl) return;
+      heroArtEl.style.marginTop = '';                       // back to the CSS value
       const base = parseFloat(getComputedStyle(heroArtEl).marginTop) || 0;
 
-      /* getBoundingClientRect includes the SVGs' rotate/translate, so this
-         is where the text actually renders, not where its box sits. */
-      const textBottom = taglineEl.getBoundingClientRect().bottom;
-      const globeTop   = heroGlobeEl.getBoundingClientRect().top;
+      let artTop = heroArtEl.getBoundingClientRect().top;
+      document.querySelectorAll('.hero-tulip, .hero-npc').forEach(el => {
+        artTop = Math.min(artTop, el.getBoundingClientRect().top);
+      });
 
-      heroArtEl.style.marginTop = (base + (GAP - (globeTop - textBottom))).toFixed(2) + 'px';
+      const gap = artTop - taglineEl.getBoundingClientRect().bottom;
+      if (gap < MIN_GAP) {
+        heroArtEl.style.marginTop = (base + (MIN_GAP - gap)).toFixed(2) + 'px';
+      }
     }
-    window.addEventListener('resize', alignHeroText);
-    window.addEventListener('load', alignHeroText);
-    alignHeroText();
+
+    /* The hero text is plain centred HTML now, so only the flower ring still
+       needs measuring against the globe. */
+    function alignHero() { preventOverlap(); alignRingToGlobe(); }
+
+    window.addEventListener('resize', alignHero);
+    window.addEventListener('load', alignHero);
+    alignHero();
+
+    /* The first run happens before the globe PNG has decoded and before the
+       web fonts swap in, so it measures a wrong-sized globe. These cover
+       every case that changes the geometry after that first pass. */
+    if (globeEl && !globeEl.complete) {
+      globeEl.addEventListener('load', alignHero, { once: true });
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(alignHero);
+    }
+    /* Catch-all: re-run whenever the globe's size OR the tagline's height
+       changes. The tagline matters because it reflows between two and three
+       lines as the window narrows, and that reflow is exactly what used to
+       push it into the flowers. */
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(alignHero);
+      if (globeEl) ro.observe(globeEl);
+      if (taglineEl) ro.observe(taglineEl);
+    }
 
     window.addEventListener('wheel', e => {
       if (stepping) return;

@@ -141,15 +141,20 @@
         cursorOuter.classList.remove('is-ring');
         cursorInner.classList.remove('is-ring');
 
-        // Where it should land: centered, scaled up from its ring size.
-        const targetW = Math.min(window.innerWidth * 0.62, 620);
+        /* Where it should land: centred, and sized to fit whatever the
+           window is — bounded by height as well as width so the whole photo
+           is visible on short or narrow screens instead of running off. */
+        const ratio = r.height / r.width;
+        const targetW = Math.min(window.innerWidth * 0.86,
+                                 (window.innerHeight * 0.8) / ratio,
+                                 620);
         const scale = targetW / r.width;
         const dx = window.innerWidth / 2 - (r.left + r.width / 2);
         const dy = window.innerHeight / 2 - (r.top + r.height / 2);
 
         requestAnimationFrame(() => {
           overlay.classList.add('is-open');
-          // A full 360deg turn reads as a card flip and lands facing forward.
+          // One full turn out.
           card.style.transform =
             'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ') rotateY(360deg)';
         });
@@ -159,7 +164,10 @@
         if (!card || closing) return;
         closing = true;
         overlay.classList.remove('is-open');
-        card.style.transform = 'translate(0px, 0px) scale(1) rotateY(0deg)';
+        /* 720deg, not back to 0: carrying on in the same direction reads as
+           a second flip home, where rewinding to 0 just looked like the
+           first flip running backwards. */
+        card.style.transform = 'translate(0px, 0px) scale(1) rotateY(720deg)';
         card.addEventListener('transitionend', function done() {
           card.removeEventListener('transitionend', done);
           card.remove();

@@ -209,7 +209,22 @@ html { overflow-x: clip; }
 .nav-links a:hover { opacity: 0.5; }
 
 /* ── HERO ── */
-.hero { overflow: visible; position: relative; }
+/* --hero-w is the same clamp .hero-globe-wrap uses for its own width, but
+   declared here so the curved text can scale off it too. Every desktop hero
+   offset below is expressed as a fraction of it, so the text, the globe and
+   the gap between them all scale as one unit — the spacing keeps its
+   proportion instead of the text staying fixed while the art shrinks.
+   Each fraction equals the original pixel value / 820.8 (the clamp's max),
+   so at full width nothing moves. */
+.hero {
+  overflow: visible;
+  position: relative;
+  /* Scale for the globe art (see .hero-globe-wrap, which aliases this) and
+     the offsets derived from it. Ramps from 67% of the viewport toward full
+     bleed as the window narrows, so the art grows relative to the screen
+     without stepping at a breakpoint. */
+  --hero-w: min(100vw, clamp(300px, calc(66.96vw + max(0px, (900px - 100vw) * 0.37)), 820.8px));
+}
 
 /* Tint drawn as a layer rather than a plain background so it can reach up
    past the hero's box to cover the nav strip (the nav is a sibling above
@@ -234,7 +249,13 @@ html { overflow-x: clip; }
    the top of the first card row (z-index 10) and was swallowing the
    custom "READ CASE STUDY" cursor hover there. Nothing in it is
    interactive, so let the mouse pass through. */
-.hero-text { margin-top: 430px; position: relative; z-index: 10; pointer-events: none; }
+.hero-text {
+  margin-top: clamp(72px, 11vh, 150px);
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
 
 .hero-cloud {
   position: absolute;
@@ -261,63 +282,30 @@ html { overflow-x: clip; }
    Width tracks the tagline at 600:810 ratio (74.07% of the container) so
    both texts shrink together — a fixed 600px stopped shrinking before the
    tagline did on tablets, drifting out of alignment. */
-.hero-name-svg {
-  display: block;
-  width: min(600px, 74.07%);
-  /* The SVG scales its type with its box, so rendered size is 64px x
-     (width / 600). Flooring the width at 300px stops the name rendering
-     below 32px. */
-  min-width: 300px;
-  height: auto;
-  overflow: visible;
-  transform: translateY(-400px) rotate(-25deg);
-  transform-origin: center center;
-}
-
-.hero-name-text {
+/* ── Hero text ──
+   Plain centred lines. This replaced a pair of SVG arcs whose radius and
+   font size were the same control, which is what made the spacing so hard
+   to hold steady across widths. */
+.hero-name {
   font-family: var(--script);
-  /* Fixed in user units, like the tagline's 24px — the SVG box handles all
-     the scaling. The old vw clamp made the title resize continuously with
-     the window while the tagline held steady, so the two drifted apart. */
-  font-size: 64px;
+  font-size: clamp(40px, 5vw, 64px);
   font-weight: 600;
-  fill: var(--text);
+  line-height: 1.15;
+  color: var(--text);
+  margin: 0;
 }
 
-/* Tagline curves along the top of a 900px circle (radius 450) */
-.hero-tagline-svg {
-  display: block;
-  width: 810px;
-  max-width: 100%;
-  /* Rendered type is 24px x (width / 808), so a full-width 808px floor
-     keeps the tagline from ever rendering below 24px. */
-  min-width: 808px;
-  height: auto;
-  /* Visual gap to the name = (name height 165px + this margin) + (tagline
-     translateY -500px - name translateY -400px) = 65px + margin. -17px puts
-     it at 48px. */
-  margin-top: -17px;
-  overflow: visible;
-  transform: translateY(-500px) rotate(-15deg);
-  transform-origin: center center;
-}
-
-.hero-tagline-text {
+.hero-tagline {
   font-family: var(--font);
-  /* Scales on the same curve as .hero-name-text's clamp(48px, 5vw, 64px) —
-     same 12.8 px-per-vw ratio and the same 0.75 floor — so the two lines
-     shrink together. Without this the tagline only scaled with its SVG box
-     while the name also shrank its type, so the name pulled away. */
-  /* Fixed in user units — the 16px floor is enforced by the SVG's
-     min-width above, so the two don't fight each other. */
-  font-size: 24px;
+  font-size: clamp(20px, 1.9vw, 24px);
   font-weight: 400;
-  fill: var(--text);
+  line-height: 1.55;
+  color: var(--text);
+  /* Caps the measure so the line breaks in roughly the same place at any
+     width, rather than stretching across a wide screen. */
+  max-width: 34em;
+  margin: 16px auto 0;
 }
-
-/* Full tagline by default; the shortened phone version is swapped in by the
-   ≤600px block. */
-.hero-tagline-short { display: none; }
 
 .tagline-accent {
   color: #78B19D;
@@ -328,7 +316,12 @@ html { overflow-x: clip; }
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  margin-top: -692px;
+  /* The text block is back in normal flow, so this only needs to close the
+     distance between the bottom of the tagline and the top of the globe
+     art — about -100px at desktop, easing to roughly -165px on phones where
+     the tagline wraps to more lines. The clamp keeps that transition smooth
+     rather than stepping at a breakpoint. */
+  margin-top: calc(-116px - clamp(0px, (1226px - 100vw) * 0.078, 66px));
   overflow: visible;
 }
 
@@ -339,8 +332,13 @@ html { overflow-x: clip; }
   /* Single source of truth for responsive width. The tulip ring, tulip
      spokes, and npc orbit radius all derive from this so they scale in
      lockstep with the glow/globe (which are already %-of-width) at every
-     viewport size, instead of drifting out of sync on tablet/phone. */
-  --wrap-w: clamp(561.6px, 66.96vw, 820.8px);
+     viewport size, instead of drifting out of sync on tablet/phone.
+     It ramps from 67% of the viewport up toward full bleed as the window
+     narrows (it used to flip straight to 100vw at the 900px breakpoint,
+     which made the globe jump ~300px wide in one pixel of resize).
+     Defined on .hero as --hero-w so the curved text shares the exact same
+     scale and its arcs keep following the globe's curvature. */
+  --wrap-w: var(--hero-w);
   /* The globe image is 78% of the wrap width, so its radius is 39% of it.
      --globe-r sizes/places the ring's box so it shares the globe's center;
      --ring-r is how far out the flowers and NPCs stand from that center.
@@ -510,11 +508,12 @@ html { overflow-x: clip; }
    place. */
 .hero-vine {
   position: absolute;
-  /* The lift is a proportion of the art's width rather than a fixed 345px,
-     so it shrinks along with everything else — on narrow screens the fixed
-     value held the vines too high and cropped them off the top. 0.42 x the
-     desktop --wrap-w (820.8px) is the same 345px there. */
-  top: calc(-14% - var(--wrap-w) * 0.504);
+  /* Anchored to the top of the hero section — but .hero begins *below* the
+     nav strip (~100px of sticky nav sits above it in the flow), which is
+     the gap that was showing above the vines. The -100px clears the nav so
+     the stems run off the top of the page; the proportional term is the
+     extra bleed that keeps their cut ends hidden at every size. */
+  top: calc(-100px - var(--hero-w) * 0.08);
   width: clamp(240px, 32vw, 470px);
   z-index: 4;
   pointer-events: none;
@@ -544,9 +543,11 @@ html { overflow-x: clip; }
    scaled down on smaller screens while the flower didn't follow, so they
    drifted apart. */
 .hero-vine-bloom--left {
-  width: 27%;
-  left: 44%;
-  top: 32%;
+  width: 35.1%;
+  /* left/top shifted back by half the size increase so the bloom grows
+     around its own centre and stays seated on the stem tip. */
+  left: 39.95%;
+  top: 27.95%;
 }
 
 .hero-vine-bloom--right {
@@ -560,17 +561,16 @@ html { overflow-x: clip; }
 /* The two stems have very different proportions (the left is near-square,
    the right is tall and narrow), so they're sized separately. Both are
    pushed further out toward the screen edges. */
-/* Anchored to the viewport edges, not to the centered globe wrap: `50% -
-   50vw` resolves to the screen's edge from inside this centered box, so the
-   vines track the window as it resizes instead of staying put and drifting
-   out of frame. The trailing px keeps the desktop composition identical. */
-.hero-vine--left  { left: calc(50% - 50vw - 132px); width: clamp(312px, 41.6vw, 611px); opacity: 0; }
-.hero-vine--right { right: calc(50% - 50vw + 75px); width: clamp(169px, 22.1vw, 325px); opacity: 0; }
+/* .hero spans the full page width, so these offsets are straight from the
+   screen edges — no need for the old `50% - 50vw` trick that compensated
+   for sitting inside the centred globe wrapper. */
+.hero-vine--left  { left: -132px; width: clamp(312px, 41.6vw, 611px); opacity: 0; }
+.hero-vine--right { right: 75px;  width: clamp(169px, 22.1vw, 325px); opacity: 0; }
 
 /* Tablet and below: halve the right vine's inset from the screen edge — the
    desktop 75px reads as too much room once everything else scales down. */
 @media (max-width: 1164px) {
-  .hero-vine--right { right: calc(50% - 50vw + 37.5px); }
+  .hero-vine--right { right: 37.5px; }
 }
 
 /* Slow drop, then the sway picks up exactly where it lands. */
@@ -1249,19 +1249,23 @@ body.is-loaded .hero-vine--right {
 @media (max-width: 720px) {
   .phone-zoom { transform: none; }
 
-  /* The 624:296 ratio makes a short, wide box. On a phone that box is far
-     shorter than the tall mockups, and `overflow: hidden` clipped their
-     tops. Dropping the fixed ratio lets the box grow to whatever height the
-     artwork needs, so the full image always shows. */
+  /* The 624:296 ratio makes a box far shorter than the portrait phone
+     mockups (1103x2269), so their tops were clipped. A taller box with a
+     *definite* height is the fix: percentage max-height only resolves
+     against a definite height, which `aspect-ratio` wasn't reliably
+     providing. Now landscape art (1938x1154) fits by width and portrait art
+     fits by height — both fully visible, neither oversized. */
   .card-media {
     aspect-ratio: auto;
+    height: 54vw;
     align-items: flex-end;
-    overflow: visible;
+    overflow: hidden;
     padding: 5% 5% 0;
   }
   .card-img {
     max-width: 100%;
-    max-height: none;
+    max-height: 100%;
+    width: auto;
     height: auto;
     object-fit: contain;
   }
@@ -2974,20 +2978,26 @@ body.is-loaded .hero-vine--right {
 
 /* Clicking a ring photo flips a copy of it into the middle of the screen;
    clicking anywhere else flips it back into its slot. */
+/* The backdrop fades on its own layer rather than the overlay fading as a
+   whole — the card is a child, so fading the overlay took the card with it
+   and the photo vanished partway through the flip home. */
 .pg-lightbox {
   position: fixed;
   inset: 0;
   z-index: 9000;
-  background: rgba(255, 255, 255, 0.86);
-  opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s ease;
   perspective: 1400px;
 }
-.pg-lightbox.is-open {
-  opacity: 1;
-  pointer-events: auto;
+.pg-lightbox::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.86);
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
+.pg-lightbox.is-open { pointer-events: auto; }
+.pg-lightbox.is-open::before { opacity: 1; }
 
 .pg-lightbox-card {
   position: fixed;
@@ -3012,7 +3022,10 @@ body.is-loaded .hero-vine--right {
 
 @media (max-width: 720px) {
   .pg-ring-stage { --ring-size: 247vw; margin-bottom: 64px; }
-  .pg-ring-item { width: calc(var(--ring-size) * 0.17); }
+  /* 0.17 left only ~16px between neighbours at phone sizes, so they read as
+     touching. Neighbour centres sit 0.1869 x ring-size apart, so 0.14 keeps
+     a clear gap — matching how the desktop ring reads. */
+  .pg-ring-item { width: calc(var(--ring-size) * 0.14); }
 }
 
 /* ── Responsive ── */
@@ -3186,45 +3199,18 @@ body.is-loaded .hero-vine--right {
   .hero-npc--10,
   .hero-npc--11 { width: calc(var(--wrap-w) * 0.0934); }
 
-  /* Text block: same on-screen position as before, but the layout box is
-     pulled up so the hero's flow height ends where the dome visually ends
-     (no more dead space between hero and the first cards). */
-  .hero-text { margin-top: calc(62.32vw - 49px); }
-  /* Both SVGs shrink to the same ~90vw here, which flips their arc-radius
-     relationship (name 400·w/600 vs tagline 450·w/808) and makes the two
-     curves cross. Rendering the name at 66vw restores the desktop ratio
-     (tagline arc ~13% larger) so the curves nest instead of colliding. */
-  /* Phones are narrower than the desktop floors, so clear them here.
-     The tagline's Y is derived from the name's (-96px - 39.33vw) minus the
-     name's own height (0.275 x 66vw = 18.15vw) plus the 24px gap, so the two
-     stay 24px apart at every phone width. The old independent vw formula let
-     the gap swing by ~110px across that range. */
-  /* Both Y offsets are eased by 45px here so the pair sits lower — at these
-     widths the vw-driven lift pulled them up under the nav. Applied
-     equally. Phones get a bigger 90px drop in the ≤600px block below. */
-  .hero-name-svg    { width: 66vw; min-width: 0; transform: translate(-30px, calc(-131px - 39.33vw)) rotate(-21deg); }
-  .hero-tagline-svg {
-    min-width: 0;
-    margin-top: 0;
-    /* taglineY = nameY - name height (18.15vw) + gap. The 48px gap matches
-       full width; both offsets move together so it stays constant. */
-    transform: translate(-20px, calc(-83px - 57.48vw)) rotate(-10deg);
-  }
 
-  /* --wrap-w becomes 100vw here, so the multiplier has to be retuned or the
-     vines drift out of frame. */
-  .hero-vine { top: calc(-14% - var(--wrap-w) * 0.42); }
+  /* The hero text is plain centred lines now — no per-breakpoint overrides
+     needed, it just wraps. */
 
-  /* Globe re-centered (the ≤720px flex-start/negative-margin hack existed
-     for the oversized fixed-width globe, which no longer applies) and
-     pinned so its dome top tucks under the tagline. */
+  /* No top override needed any more — the vines hang from the top of the
+     hero section, so they sit correctly at every width. */
+
+  /* Only the horizontal centering is band-specific now; the vertical
+     offset comes from the single continuous formula on .hero-art. */
   .hero-art {
     justify-content: center;
     margin-left: 0;
-    /* Baseline, no drop. -84.9vw = -(0.6053 + 0.2437) × the 100vw art
-       width; the +20px is the original globe/tulip/npc nudge. The phone
-       block below adds its own drop on top of this — tablet keeps none. */
-    margin-top: calc(20px - 84.9vw);
   }
 }
 
@@ -3233,15 +3219,12 @@ body.is-loaded .hero-vine--right {
    the selectors have equal specificity, so whichever is written last wins.
    Sitting earlier in the file is why these were being ignored. */
 @media (max-width: 600px) {
-  /* Shorter tagline on phones — the full line has to shrink too far here. */
-  .hero-tagline-full  { display: none; }
-  .hero-tagline-short { display: block; }
+  /* Tighter title-to-tagline gap on phones. */
+  .hero-tagline { margin-top: 8px; }
 
-  .hero-name-svg    { transform: translate(-30px, calc(-6px - 39.33vw)) rotate(-21deg); }
-  .hero-tagline-svg { transform: translate(-20px, calc(18px - 57.48vw)) rotate(-10deg); }
-  .hero-vine        { top: calc(-14% - var(--wrap-w) * 0.8); }
-
-  /* Taller hero: the globe, its ring, and the scroll hint (all children of
-     the art block) shift down together by 100px. */
-  .hero-art { margin-top: calc(120px - 84.9vw); }
+  /* Globe sits 192px lower here — the negative margin is reduced by that
+     much on top of the base formula's phone value. */
+  /* Base value at phone widths is (-116 - 66); +192 drops the globe from
+     there. Keep the -116 in sync with the base rule on .hero-art. */
+  .hero-art { margin-top: calc(-116px - 66px + 192px); }
 }
